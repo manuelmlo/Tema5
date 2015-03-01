@@ -15,18 +15,19 @@ import org.w3c.dom.Text;
  */
 public class Partidos {
     
-    protected String team1;
-    protected String team2;
+    private String team1;
+    private String team2;
+    private String type;
     
-    public Partidos( String Equipo1, String Equipo2){
+    public Partidos( String type,String Equipo1, String Equipo2){
         this.team1=Equipo1;
         this.team2=Equipo2;
+        this.type=type;
     }
     
-    public Element getGameXML(Document document, Element element){
+    public Element getGameXML(Document document){
         
-        Element game= document.createElement("Partido");
-        element.appendChild(game);
+        Element game= document.createElement("Partido");  
         
         Element teamone = document.createElement("Equipo");
         game.appendChild(teamone);
