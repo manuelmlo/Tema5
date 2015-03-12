@@ -97,26 +97,26 @@ public class JLabelX extends JLabel implements MouseListener, MouseMotionListene
     
     /**
      * 
-     * @param Imagen_full 
+     * @param Imagen_IsEmty
      */
-    public void setImageIsEmpty(String Imagen_full){
-        isempty=new ImageIcon(getClass().getResource(Imagen_full));
+    public void setImageIsEmpty(String Imagen_IsEmty){
+        isempty=new ImageIcon(getClass().getResource(Imagen_IsEmty));
     }
     
     /**
      * 
-     * @param Imagen_full 
+     * @param Imagen_Full
      */
-    public void setImageFull(String Imagen_full){
-        full=new ImageIcon(getClass().getResource(Imagen_full));
+    public void setImageFull(String Imagen_Full){
+        full=new ImageIcon(getClass().getResource(Imagen_Full));
     }
     
     /**
      * 
-     * @param Imagen_full 
+     * @param Imagen_Empty
      */
-    public void setImageEmpty(String Imagen_full){
-        empty=new ImageIcon(getClass().getResource(Imagen_full));
+    public void setImageEmpty(String Imagen_Empty){
+        empty=new ImageIcon(getClass().getResource(Imagen_Empty));
     }
     
     /**

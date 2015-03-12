@@ -5,7 +5,11 @@
  */
 package solitariochino;
 
-import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,18 +19,8 @@ import javax.swing.JTextArea;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.ErrorListener;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
 import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -39,26 +33,30 @@ public class Solitaire {
 
     protected int numtype = 3;
     protected Object[][] board;
-    protected Object empty;
-    protected Object full;
-    protected Object isnull;
+    protected Object empty =1;
+    protected Object full=0;
+    protected Object isnull='x';
     protected Object[][] boardgraf;
     private final int AUXS = 1;
     private final int AUXCENTER = 3;
-    private final int DIMENSION=7;
-    protected int coordinatexin= AUXCENTER;
-    protected int coordinateyin= AUXCENTER;
-    protected int coordinatexout= AUXCENTER;
-    protected int coordinateyout= AUXCENTER;
-    protected ArrayList<int[]> moves= new ArrayList();
+    private  int DIMENSIONX = 7;
+    private  int DIMENSIONY = 7;
+    protected int coordinatexin = AUXCENTER;
+    protected int coordinateyin = AUXCENTER;
+    protected int coordinatexout = AUXCENTER;
+    protected int coordinateyout = AUXCENTER;
+    protected ArrayList<int[]> moves = new ArrayList();
+    private File file= null;
+    private int level=0;
+    
     private JPanel Panel;
 
     /**
      *
      */
     public Solitaire() {
-        
-        this.numtype=3;
+
+        this.numtype = 3;
 
     }
 
@@ -79,6 +77,10 @@ public class Solitaire {
         }
     }
 
+    public Solitaire(String namefile, int level) {
+        this.readFile(namefile, level);
+    }
+
     /**
      *
      * @param numtype
@@ -97,9 +99,9 @@ public class Solitaire {
      *
      */
     protected void generategame() {
-
-        board = new Object[DIMENSION][DIMENSION];
-        boardgraf= new Object[DIMENSION][DIMENSION];
+        
+        board = new Object[DIMENSIONX][DIMENSIONY];
+        boardgraf= new Object[DIMENSIONX][DIMENSIONY];
 
         for (int x = 0; x < board.length; x++) {
 
@@ -230,7 +232,7 @@ public class Solitaire {
         }
     }
     /**
-     * 
+     * Revisar método.
      * @param coordinatex
      * @param coordinatey
      * @return 
@@ -280,15 +282,17 @@ public class Solitaire {
     @Override
    public String toString(){
        String aux="";
-        for (Object[] tablero1 : board) {
+        for (int x=0; x<board.length; x++) {
             for (int y = 0; y<board[0].length; y++) {
-                aux += String.valueOf(tablero1[y]);
+                aux += String.valueOf(board[x][y]);
             }
             aux+="\n";
         }
        System.out.println(aux);
        return aux;
    }
+   
+   
    public void toString(JTextArea jTextArea){
        jTextArea.setText("");
        String aux="";
@@ -386,11 +390,9 @@ public class Solitaire {
    
    /**
     * 
-    * @return
-    * @throws TransformerConfigurationException
-    * @throws TransformerException 
+    * @return 
     */
-   protected Source generateXml() throws TransformerConfigurationException, TransformerException{
+   protected Source generateXml(){
        int[]tmp;
        Source readxml = null;
         try {
@@ -509,9 +511,7 @@ public class Solitaire {
            this.setcoordinateout(coordinatexin, coordinateyin+1);
        }
    }
-   public void setSelected(String o){
-
-   }
+   
    /**
     * 
     * @param jPanel 
@@ -521,10 +521,142 @@ public class Solitaire {
        this.Panel=jPanel;
 
    }
+   
+   /**
+    * 
+    */
    public void generateJPanel(){
        
    
    }
+   /**
+    * 
+    * @param namefile
+    * @param level 
+    */
+   private void readFile(String namefile, int level){
+       File file1= new File(namefile);
+       this.readFile(file1, level);
+   }
+   
+   /**
+    * 
+    * @param file
+    * @param level 
+    */
+   public void readFile(File file, int level){
+       try {
+            BufferedReader bufferread = null;
+            bufferread = new BufferedReader(new FileReader(file));
+            String tmp = bufferread.readLine();
+            while (tmp != null) {
+                tmp = bufferread.readLine();
+
+                if (tmp.equalsIgnoreCase("DOCUMENT LEVEL") && 
+                        tmp.contains(String.valueOf(tmp.length() / 2))) {
+                    
+                    while(tmp.equalsIgnoreCase("LEVEL")){
+                        tmp=bufferread.readLine();
+                    }
+                        tmp=bufferread.readLine();
+                        this.level=Integer.valueOf(tmp);
+                        
+                    while (tmp.equalsIgnoreCase("Level" + String.valueOf(level))==false) {
+                        tmp = bufferread.readLine();
+                    }
+
+                    while (tmp.equalsIgnoreCase("SIZE")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    
+                    while (tmp.equalsIgnoreCase("X")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    tmp = bufferread.readLine();
+                    
+                    if (!(tmp == null)) {
+                        DIMENSIONX= Integer.valueOf(tmp);
+                    }
+                    
+                    while (tmp.equalsIgnoreCase("Y")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    tmp = bufferread.readLine();
+                    if (!(tmp == null)) {
+                        DIMENSIONY = Integer.valueOf(tmp);
+                    }
+                    board = new Object[DIMENSIONX][DIMENSIONY];
+                    while (tmp.equalsIgnoreCase("FULL")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    tmp = bufferread.readLine();
+                    if (!(tmp == null)) {
+                        full = tmp;
+                    }
+                    while (tmp.equalsIgnoreCase("EMPTY")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    tmp = bufferread.readLine();
+                    if (!(tmp == null)) {
+                        empty = tmp;
+                    }
+                    while (tmp.equalsIgnoreCase("ISEMPTY")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    tmp = bufferread.readLine();
+                    if (!(tmp == null)) {
+                        isnull = tmp;
+                    }
+                    while (tmp.equalsIgnoreCase("START")==false) {
+                        tmp = bufferread.readLine();
+                    }
+                    if (tmp.equalsIgnoreCase("START")==false) {
+                        tmp = bufferread.readLine();
+
+                        while (tmp.equalsIgnoreCase("END")==false) {
+                            tmp = bufferread.readLine();
+                            int x = 0;
+                            for (int y = 0; y < tmp.length(); y++) {
+                                board[x][y] = tmp.charAt(y);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   }
+   
+   /**
+    * 
+    * @param namefile 
+    */
+   public void setFile(String namefile){
+       
+       this.file = new File(namefile);
+       
+        
+       
+   }
+   /**
+    * 
+    * @param file 
+    */
+   public void setFile(File file){
+       this.file=file;
+   }
+   /**
+    * 
+    * @param level 
+    */
+   public void setLevel( int level){
+       
+      this.readFile(file, level);
+   }
+   
    
 }
    

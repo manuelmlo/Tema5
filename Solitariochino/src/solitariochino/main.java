@@ -6,10 +6,12 @@
 package solitariochino;
 
 import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -51,12 +53,9 @@ public class main extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
-        jButton1 = new javax.swing.JButton();
+        jButtonacept = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jTextFieldxin = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldyin = new javax.swing.JTextField();
@@ -65,31 +64,27 @@ public class main extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldyout = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jButtonmove = new javax.swing.JButton();
         jButtonundo = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtongeneratexml = new javax.swing.JButton();
+        jButtonexamine = new javax.swing.JButton();
+        jButtonload = new javax.swing.JButton();
 
         jFileChooser1.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonacept.setText("Aceptar");
+        jButtonacept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonaceptActionPerformed(evt);
             }
         });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
-
-        jTextField1.setText("_ ");
-
-        jTextField2.setText("O ");
-
-        jTextField3.setText("X ");
 
         jLabel1.setText("X in:");
 
@@ -99,10 +94,10 @@ public class main extends javax.swing.JFrame {
 
         jLabel5.setText("Y out:");
 
-        jButton2.setText("Mover");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonmove.setText("Mover");
+        jButtonmove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonmoveActionPerformed(evt);
             }
         });
 
@@ -113,10 +108,24 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Generate XML");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtongeneratexml.setText("Generate XML");
+        jButtongeneratexml.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtongeneratexmlActionPerformed(evt);
+            }
+        });
+
+        jButtonexamine.setText("Examinar...");
+        jButtonexamine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonexamineActionPerformed(evt);
+            }
+        });
+
+        jButtonload.setText("Cargar");
+        jButtonload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonloadActionPerformed(evt);
             }
         });
 
@@ -127,40 +136,37 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButtonundo)
+                            .addGap(294, 294, 294))
+                        .addComponent(jButtonmove, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonexamine)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonload)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButtonundo)
-                                    .addGap(237, 237, 237))
-                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
+                                    .addComponent(jButtonacept)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTextFieldxout)
-                                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addComponent(jLabel1)
-                                            .addComponent(jTextFieldxin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jTextFieldyout, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jTextFieldyin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(57, 57, 57))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextFieldxout)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jTextFieldxin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jTextFieldyout, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jTextFieldyin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButtongeneratexml))
+                        .addContainerGap(208, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,15 +177,10 @@ public class main extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)))
+                            .addComponent(jButtonmove)
+                            .addComponent(jButtonacept)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(128, 128, 128)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
@@ -199,24 +200,26 @@ public class main extends javax.swing.JFrame {
                                 .addComponent(jTextFieldyout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonundo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButtongeneratexml)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonexamine)
+                    .addComponent(jButtonload))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        solitariochino.setIsnull(jTextField1.getText());
-        solitariochino.setEmpty(jTextField2.getText());
-        solitariochino.setFull(jTextField3.getText());
+    private void jButtonaceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonaceptActionPerformed
+
         solitariochino.generategame();
         jTextArea1.setText("");
         jTextArea1.setText(solitariochino.toString());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonaceptActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonmoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonmoveActionPerformed
       solitariochino.setcoordinatein(Integer.valueOf(jTextFieldxin.getText())-1, 
               Integer.valueOf(jTextFieldyin.getText())-1);
       solitariochino.setcoordinateout(Integer.valueOf(jTextFieldxout.getText())-1,
@@ -224,7 +227,7 @@ public class main extends javax.swing.JFrame {
       solitariochino.setMove();
       jTextArea1.setText("");
       jTextArea1.setText(solitariochino.toString());   
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonmoveActionPerformed
 
     private void jButtonundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonundoActionPerformed
            solitariochino.undoMove();
@@ -233,10 +236,10 @@ public class main extends javax.swing.JFrame {
      
     }//GEN-LAST:event_jButtonundoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtongeneratexmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtongeneratexmlActionPerformed
         try {
             TransformerFactory madexml = new TransformerFactory() {
-                
+
                 @Override
                 public Transformer newTransformer(Source source) throws TransformerConfigurationException {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -296,7 +299,7 @@ public class main extends javax.swing.JFrame {
                 public ErrorListener getErrorListener() {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 }
-            };
+            };            
             Transformer madedocxml = madexml.newTransformer();
             madedocxml.setOutputProperty(OutputKeys.INDENT, "yes");
             madedocxml.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, "3");
@@ -311,7 +314,31 @@ public class main extends javax.swing.JFrame {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtongeneratexmlActionPerformed
+
+    private void jButtonexamineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexamineActionPerformed
+        
+        JFileChooser selectorfile = new JFileChooser();
+        selectorfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        selectorfile.setCurrentDirectory(new File(".", "Level"));
+        FileNameExtensionFilter filter= new FileNameExtensionFilter("Archivos LEVEL (*.level)","level" );
+        selectorfile.setFileFilter(filter);
+        int selector = selectorfile.showOpenDialog(this);
+        if(selector==JFileChooser.APPROVE_OPTION){
+            File file = selectorfile.getSelectedFile();
+            solitariochino.setFile(file);
+            JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.", 
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se ha cargado archivo niveles.", 
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonexamineActionPerformed
+
+    private void jButtonloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonloadActionPerformed
+            
+        
+    }//GEN-LAST:event_jButtonloadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,9 +376,11 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonacept;
+    private javax.swing.JButton jButtonexamine;
+    private javax.swing.JButton jButtongeneratexml;
+    private javax.swing.JButton jButtonload;
+    private javax.swing.JButton jButtonmove;
     private javax.swing.JButton jButtonundo;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -360,9 +389,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextFieldxin;
     private javax.swing.JTextField jTextFieldxout;
     private javax.swing.JTextField jTextFieldyin;
