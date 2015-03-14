@@ -36,7 +36,6 @@ public class Solitaire {
     protected Object empty =1;
     protected Object full=0;
     protected Object isnull='x';
-    protected Object[][] boardgraf;
     private final int AUXS = 1;
     private final int AUXCENTER = 3;
     private  int DIMENSIONX = 7;
@@ -45,9 +44,10 @@ public class Solitaire {
     protected int coordinateyin = AUXCENTER;
     protected int coordinatexout = AUXCENTER;
     protected int coordinateyout = AUXCENTER;
-    protected ArrayList<int[]> moves = new ArrayList();
+    protected ArrayList<Moves> moves = new ArrayList();
     private File file= null;
     private int level=0;
+    private String [] listlevel=null;
     
     private JPanel Panel;
 
@@ -101,7 +101,6 @@ public class Solitaire {
     protected void generategame() {
         
         board = new Object[DIMENSIONX][DIMENSIONY];
-        boardgraf= new Object[DIMENSIONX][DIMENSIONY];
 
         for (int x = 0; x < board.length; x++) {
 
@@ -124,7 +123,7 @@ public class Solitaire {
             }
         }
     }
-
+    
     /**
      *
      * @return
@@ -309,13 +308,21 @@ public class Solitaire {
     * 
     */
    protected void saveMove(){
-       int[]tmp = {coordinatexin,coordinateyin,coordinatexout,coordinateyout};
-       moves.add(tmp);
+       
+       if(!moves.isEmpty()&& moves.size()==Moves.getAccess()){
+           moves.add(new Moves(coordinatexin, coordinateyin, coordinatexout, coordinateyout));
+       }else{
+           moves.add(Moves.getAccess(),new Moves(coordinatexin, coordinateyin, coordinatexout, coordinateyout)); 
+       }
+       
    }
+   /**
+    * 
+    */
    public void undoMove(){
        if(!moves.isEmpty()){
            int[] tmp;
-           tmp=moves.get(moves.size()-1);
+           tmp=moves.get(Moves.getAccess()-1).getCoord() ;
            this.setCellUndo(tmp[0], tmp[1], full);
            this.setCellUndo(tmp [2], tmp[3], empty);
            if(tmp[0]==tmp[2]){
@@ -332,52 +339,41 @@ public class Solitaire {
                    this.setCellUndo(tmp[2]-1, tmp[1], full);
                }
            }
-           moves.remove(moves.size()-1);
+           
        }else{
-           JOptionPane.showMessageDialog(null,"No hay movimientos" , "Información",
+           JOptionPane.showMessageDialog(null,"No hay movimientos que deshacer" , "Información",
                    JOptionPane.INFORMATION_MESSAGE);
        }
    }
-   /**
-    * 
-    * @param numUndoMove 
-    */
-   public void undoMove(int numUndoMove){
-       int aux=moves.size();
-       if(!moves.isEmpty()){
-           if(numUndoMove<aux){
-                for(int i=0; i<numUndoMove; i++){
-                     int[] tmp;
-                     tmp=moves.get(moves.size()-1);
-                     this.setCellUndo(tmp[0], tmp[1], full);
-                     this.setCellUndo(tmp [2], tmp[3], empty);
-                     if(tmp[0]==tmp[2]){
-                         if(tmp[1]>tmp[3]){
-                             this.setCellUndo(tmp[0], tmp[1]-tmp[3], full);
-                         }else{
-                             this.setCellUndo(tmp[0], tmp[3]-tmp[1], full);
-                         }
-                     }
-                     if(tmp[1]==tmp[3]){
-                         if(tmp[0]>tmp[2]){
-                             this.setCellUndo(tmp[0]-tmp[2], tmp[1], full);
-                         }else{
-                             this.setCellUndo(tmp[2]-tmp[0], tmp[1], full);
-                         }
-                     }
-                     moves.remove(moves.size());
-                }
-           }else{
-               
-               JOptionPane.showMessageDialog(null,"No Suficientes hay movimientos" , "Información",
-                   JOptionPane.INFORMATION_MESSAGE);
+    /**
+     * 
+     */
+      public void reUndoMove(){
+       if(!(moves.size()==Moves.getAccess())){
+           int[] tmp;
+           tmp=moves.get(Moves.getAccess()+1).getCoord();
+           this.setCellUndo(tmp[0], tmp[1], empty);
+           this.setCellUndo(tmp [2], tmp[3], full);
+           if(tmp[0]==tmp[2]){
+               if(tmp[1]>tmp[3]){
+                   this.setCellUndo(tmp[0], tmp[3]+1, empty);
+               }else{
+                   this.setCellUndo(tmp[0], tmp[3]-1, empty);
+               }
+           }
+           if(tmp[1]==tmp[3]){
+               if(tmp[0]>tmp[2]){
+                   this.setCellUndo(tmp[2]+1, tmp[1], empty);
+               }else{
+                   this.setCellUndo(tmp[2]-1, tmp[1], empty);
+               }
            }
        }else{
-           JOptionPane.showMessageDialog(null,"No hay movimientos" , "Información",
+           JOptionPane.showMessageDialog(null,"No hay movimientos rehacer" , "Información",
                    JOptionPane.INFORMATION_MESSAGE);
        }
-       
    }
+   
    /**
     * 
     * @param coordinatex
@@ -396,38 +392,13 @@ public class Solitaire {
        int[]tmp;
        Source readxml = null;
         try {
-            DocumentBuilderFactory makerXML = new DocumentBuilderFactory() {
-                @Override
-                public DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-                
-                @Override
-                public void setAttribute(String name, Object value) throws IllegalArgumentException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-                
-                @Override
-                public Object getAttribute(String name) throws IllegalArgumentException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-                
-                @Override
-                public void setFeature(String name, boolean value) throws ParserConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-                
-                @Override
-                public boolean getFeature(String name) throws ParserConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            };
+            DocumentBuilderFactory makerXML = DocumentBuilderFactory.newInstance();
             DocumentBuilder makedocument = makerXML.newDocumentBuilder();
             Document documentxml = makedocument.newDocument();
             Element itemroot = documentxml.createElement("Movimientos");
             documentxml.appendChild(itemroot);
             for(int i=0; i<moves.size();i++){
-                tmp=moves.get(i);
+                tmp=moves.get(i).getCoord();
                 Element itemmov = documentxml.createElement("Movimiento "+ (i+1));
                 itemroot.appendChild(itemmov);
                 
@@ -524,13 +495,6 @@ public class Solitaire {
    
    /**
     * 
-    */
-   public void generateJPanel(){
-       
-   
-   }
-   /**
-    * 
     * @param namefile
     * @param level 
     */
@@ -546,21 +510,15 @@ public class Solitaire {
     */
    public void readFile(File file, int level){
        try {
-            BufferedReader bufferread = null;
+            BufferedReader bufferread;
             bufferread = new BufferedReader(new FileReader(file));
             String tmp = bufferread.readLine();
-            while (tmp != null) {
+            if (tmp != null) {
                 tmp = bufferread.readLine();
 
-                if (tmp.equalsIgnoreCase("DOCUMENT LEVEL") && 
+                if (tmp.equalsIgnoreCase("DOCUMENT LEVEL")==false && 
                         tmp.contains(String.valueOf(tmp.length() / 2))) {
-                    
-                    while(tmp.equalsIgnoreCase("LEVEL")){
-                        tmp=bufferread.readLine();
-                    }
-                        tmp=bufferread.readLine();
-                        this.level=Integer.valueOf(tmp);
-                        
+                       
                     while (tmp.equalsIgnoreCase("Level" + String.valueOf(level))==false) {
                         tmp = bufferread.readLine();
                     }
@@ -613,7 +571,7 @@ public class Solitaire {
                     if (tmp.equalsIgnoreCase("START")==false) {
                         tmp = bufferread.readLine();
 
-                        while (tmp.equalsIgnoreCase("END")==false) {
+                        while (tmp.equalsIgnoreCase("END")==true) {
                             tmp = bufferread.readLine();
                             int x = 0;
                             for (int y = 0; y < tmp.length(); y++) {
@@ -629,24 +587,65 @@ public class Solitaire {
             Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
+
+    public String[] getListlevel() {
+        return listlevel;
+    }
    
    /**
     * 
     * @param namefile 
     */
-   public void setFile(String namefile){
-       
-       this.file = new File(namefile);
-       
-        
-       
-   }
+    public void setFile(String namefile) {
+
+        try {
+            this.file = new File(namefile);
+            BufferedReader bufferread = null;
+            bufferread = new BufferedReader(new FileReader(file));
+            String tmp = bufferread.readLine();
+            if (tmp != null) {
+                while (tmp.equalsIgnoreCase("LEVELS")==false) {
+                    tmp = bufferread.readLine();
+                }
+                tmp = bufferread.readLine();
+                this.level = Integer.valueOf(tmp);
+                listlevel = new String[this.level];
+                for (int i = 0; i < listlevel.length; i++) {
+                    listlevel[i] = "Nivel " + (i + 1);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
    /**
     * 
     * @param file 
     */
    public void setFile(File file){
-       this.file=file;
+       try {
+            this.file = file;
+            BufferedReader bufferread = null;
+            bufferread = new BufferedReader(new FileReader(file));
+            String tmp = bufferread.readLine();
+            if (tmp != null) {
+                while (tmp.equalsIgnoreCase("LEVELS")==false) {
+                    tmp = bufferread.readLine();
+                }
+                tmp = bufferread.readLine();
+                this.level = Integer.valueOf(tmp);
+                listlevel = new String[this.level];
+                for (int i = 0; i < listlevel.length; i++) {
+                    listlevel[i] = "Nivel " + (i + 1);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
    }
    /**
     * 

@@ -6,22 +6,27 @@
 package solitariochino;
 
 import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
+import java.awt.Dialog;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.xml.transform.ErrorListener;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 
 /**
@@ -39,7 +44,9 @@ public class main extends javax.swing.JFrame {
      */
     public main() {
         initComponents();
-        
+        this.setLocationRelativeTo(null);
+        this.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        this.windowClosing();
         
     }
 
@@ -52,7 +59,23 @@ public class main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFileChooser1 = new javax.swing.JFileChooser();
+        jFileChooseropen = new javax.swing.JFileChooser();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jDialogsetting = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jComboBoxlevel = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jButtonexamine1 = new javax.swing.JButton();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jInternalFramecreategame = new javax.swing.JInternalFrame();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         jButtonacept = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -65,13 +88,156 @@ public class main extends javax.swing.JFrame {
         jTextFieldyout = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButtonmove = new javax.swing.JButton();
-        jButtonundo = new javax.swing.JButton();
-        jButtongeneratexml = new javax.swing.JButton();
-        jButtonexamine = new javax.swing.JButton();
         jButtonload = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jButtonundo = new javax.swing.JButton();
+        jButtonundo1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuItemopen = new javax.swing.JMenuItem();
+        jMenuItemnewgame = new javax.swing.JMenuItem();
+        jMenuItemexportxml = new javax.swing.JMenuItem();
+        jMenuItemexit = new javax.swing.JMenuItem();
+        jMenuedit = new javax.swing.JMenu();
+        jMenuItemundo = new javax.swing.JMenuItem();
+        jMenuItemreundo = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenusetting = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
 
-        jFileChooser1.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+        jFileChooseropen.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        jFileChooseropen.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setPreferredSize(new java.awt.Dimension(400, 200));
+
+        jComboBoxlevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxlevelActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Nivel:");
+
+        jButtonexamine1.setText("Examinar...");
+        jButtonexamine1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonexamine1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxlevel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonexamine1)
+                    .addComponent(jLabel6))
+                .addGap(101, 256, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jButtonexamine1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBoxlevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Juego", jPanel3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 366, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 125, Short.MAX_VALUE)
+        );
+
+        jTabbedPane3.addTab("tab1", jPanel4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 366, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 125, Short.MAX_VALUE)
+        );
+
+        jTabbedPane3.addTab("tab2", jPanel5);
+
+        jTabbedPane1.addTab("Personalización", jTabbedPane3);
+        jTabbedPane1.addTab("Idioma", jTabbedPane4);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialogsettingLayout = new javax.swing.GroupLayout(jDialogsetting.getContentPane());
+        jDialogsetting.getContentPane().setLayout(jDialogsettingLayout);
+        jDialogsettingLayout.setHorizontalGroup(
+            jDialogsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialogsettingLayout.setVerticalGroup(
+            jDialogsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+        );
+
+        jInternalFramecreategame.setVisible(true);
+
+        jMenu6.setText("File");
+        jMenuBar2.add(jMenu6);
+
+        jMenu7.setText("Edit");
+        jMenuBar2.add(jMenu7);
+
+        jInternalFramecreategame.setJMenuBar(jMenuBar2);
+
+        javax.swing.GroupLayout jInternalFramecreategameLayout = new javax.swing.GroupLayout(jInternalFramecreategame.getContentPane());
+        jInternalFramecreategame.getContentPane().setLayout(jInternalFramecreategameLayout);
+        jInternalFramecreategameLayout.setHorizontalGroup(
+            jInternalFramecreategameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 505, Short.MAX_VALUE)
+        );
+        jInternalFramecreategameLayout.setVerticalGroup(
+            jInternalFramecreategameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,33 +267,187 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        jButtonundo.setText("Deshacer");
-        jButtonundo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonundoActionPerformed(evt);
-            }
-        });
-
-        jButtongeneratexml.setText("Generate XML");
-        jButtongeneratexml.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtongeneratexmlActionPerformed(evt);
-            }
-        });
-
-        jButtonexamine.setText("Examinar...");
-        jButtonexamine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonexamineActionPerformed(evt);
-            }
-        });
-
         jButtonload.setText("Cargar");
         jButtonload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonloadActionPerformed(evt);
             }
         });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/left.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jToggleButton1});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jToggleButton1});
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButtonundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/undo.png"))); // NOI18N
+        jButtonundo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonundoActionPerformed(evt);
+            }
+        });
+
+        jButtonundo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reundo.png"))); // NOI18N
+        jButtonundo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonundo1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonundo1)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonundo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonundo1)
+                    .addComponent(jButtonundo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jMenuFile.setText("Juego");
+        jMenuFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileActionPerformed(evt);
+            }
+        });
+
+        jMenuItemopen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemopen.setText("Abrir");
+        jMenuItemopen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemopenActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemopen);
+
+        jMenuItemnewgame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemnewgame.setText("Nuevo");
+        jMenuItemnewgame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemnewgameActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemnewgame);
+
+        jMenuItemexportxml.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItemexportxml.setText("Exportar a  XML");
+        jMenuItemexportxml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemexportxmlActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemexportxml);
+
+        jMenuItemexit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemexit.setText("Salir");
+        jMenuItemexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemexitActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemexit);
+
+        jMenuBar1.add(jMenuFile);
+
+        jMenuedit.setText("Editar");
+
+        jMenuItemundo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemundo.setText("Deshacer");
+        jMenuItemundo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemundoActionPerformed(evt);
+            }
+        });
+        jMenuedit.add(jMenuItemundo);
+
+        jMenuItemreundo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemreundo.setText("Rehacer");
+        jMenuedit.add(jMenuItemreundo);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem3.setText("Crear Juego");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenuedit.add(jMenuItem3);
+
+        jMenuBar1.add(jMenuedit);
+
+        jMenusetting.setText("Preferencias");
+        jMenusetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenusettingActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenusetting);
+
+        jMenu4.setText("Acerca de");
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Ayuda");
+        jMenuBar1.add(jMenu5);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,23 +456,20 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButtonundo)
-                            .addGap(294, 294, 294))
-                        .addComponent(jButtonmove, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonexamine)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonload)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButtonacept)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addComponent(jButtonmove)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonacept)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonload)
+                                .addGap(21, 21, 21))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jTextFieldxout)
@@ -164,9 +481,13 @@ public class main extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jTextFieldyout, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jTextFieldyin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButtongeneratexml))
-                        .addContainerGap(208, Short.MAX_VALUE))))
+                                    .addComponent(jTextFieldyin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,8 +496,8 @@ public class main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonmove)
                             .addComponent(jButtonacept)))
                     .addGroup(layout.createSequentialGroup()
@@ -197,15 +518,13 @@ public class main extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldyout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonundo)
-                .addGap(18, 18, 18)
-                .addComponent(jButtongeneratexml)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonexamine)
-                    .addComponent(jButtonload))
+                                .addComponent(jTextFieldyout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonload)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -230,116 +549,194 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonmoveActionPerformed
 
     private void jButtonundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonundoActionPerformed
-           solitariochino.undoMove();
-           jTextArea1.setText("");
-           jTextArea1.setText(solitariochino.toString());
-     
+        solitariochino.undoMove();
+        jTextArea1.setText("");
+        jTextArea1.setText(solitariochino.toString());
     }//GEN-LAST:event_jButtonundoActionPerformed
-
-    private void jButtongeneratexmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtongeneratexmlActionPerformed
-        try {
-            TransformerFactory madexml = new TransformerFactory() {
-
-                @Override
-                public Transformer newTransformer(Source source) throws TransformerConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public Transformer newTransformer() throws TransformerConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public Templates newTemplates(Source source) throws TransformerConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public Source getAssociatedStylesheet(Source source, String media, String title, String charset) throws TransformerConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void setURIResolver(URIResolver resolver) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public URIResolver getURIResolver() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void setFeature(String name, boolean value) throws TransformerConfigurationException {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public boolean getFeature(String name) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void setAttribute(String name, Object value) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public Object getAttribute(String name) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void setErrorListener(ErrorListener listener) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public ErrorListener getErrorListener() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            };            
-            Transformer madedocxml = madexml.newTransformer();
-            madedocxml.setOutputProperty(OutputKeys.INDENT, "yes");
-            madedocxml.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, "3");
-            Result writexml= new StreamResult("movimientos_de_partida.xml");
-            madedocxml.transform(solitariochino.generateXml(), writexml);
-            JOptionPane.showMessageDialog(null, "El documento XML se ha creado.",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
-            
-        } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TransformerException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_jButtongeneratexmlActionPerformed
-
-    private void jButtonexamineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexamineActionPerformed
-        
-        JFileChooser selectorfile = new JFileChooser();
-        selectorfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        selectorfile.setCurrentDirectory(new File(".", "Level"));
-        FileNameExtensionFilter filter= new FileNameExtensionFilter("Archivos LEVEL (*.level)","level" );
-        selectorfile.setFileFilter(filter);
-        int selector = selectorfile.showOpenDialog(this);
-        if(selector==JFileChooser.APPROVE_OPTION){
-            File file = selectorfile.getSelectedFile();
-            solitariochino.setFile(file);
-            JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.", 
-                    "Información.", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this, "No se ha cargado archivo niveles.", 
-                    "Información.", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_jButtonexamineActionPerformed
 
     private void jButtonloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonloadActionPerformed
             
-        
     }//GEN-LAST:event_jButtonloadActionPerformed
 
+    private void jMenuItemexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemexitActionPerformed
+
+        this.closewindows();
+    }//GEN-LAST:event_jMenuItemexitActionPerformed
+
+    private void windowClosing(){
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent event ){
+                closewindows();
+            }
+});
+       
+    
+    }
+    private void closewindows(){
+        if (JOptionPane.showConfirmDialog(this, "¿Desea salir del juego?",
+                "Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            
+            if(JOptionPane.showConfirmDialog(this, "¿Desea guardar los datos?", "Aviso", 
+                    JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+                
+                JOptionPane.showMessageDialog(this, "Se han guardado los datos.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }else{
+                JOptionPane.showMessageDialog(this, "Los datos se perderán.", "Atención", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+    
+    }
+    private void jMenusettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenusettingActionPerformed
+        
+        jDialogsetting.setVisible(true);
+        
+    }//GEN-LAST:event_jMenusettingActionPerformed
+
+    private void jMenuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileActionPerformed
+       
+    }//GEN-LAST:event_jMenuFileActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        jInternalFramecreategame.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItemopenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemopenActionPerformed
+
+        JFileChooser selectorfile = new JFileChooser();
+        selectorfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        selectorfile.setCurrentDirectory(new File(".", "Level"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos LEVEL (*.level)", "level");
+        selectorfile.setFileFilter(filter);
+        int selector = selectorfile.showOpenDialog(this);
+        if (selector == JFileChooser.APPROVE_OPTION) {
+            File file = selectorfile.getSelectedFile();
+            solitariochino.setFile(file);
+            JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.",
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+            jComboBoxlevel.setModel(new DefaultComboBoxModel(solitariochino.getListlevel()));
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha cargado archivo niveles.",
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jMenuItemopenActionPerformed
+
+    private void jMenuItemnewgameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemnewgameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemnewgameActionPerformed
+
+    private void jButtonexamine1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexamine1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonexamine1ActionPerformed
+
+    private void jComboBoxlevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxlevelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxlevelActionPerformed
+
+    private void jMenuItemexportxmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemexportxmlActionPerformed
+
+        JFileChooser selectfilesave = new JFileChooser();
+        selectfilesave.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos XML (*.xml)", "xml");
+        selectfilesave.setFileFilter(filter);
+        int selectdir = selectfilesave.showOpenDialog(this);
+        if (selectdir == JFileChooser.APPROVE_OPTION) {
+            File dir = selectfilesave.getCurrentDirectory();
+            if (JOptionPane.showConfirmDialog(this, "¿Se va a guardar el archivo?",
+                    "Avertencia", JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION) {
+                try {
+                    TransformerFactory madexml = TransformerFactory.newInstance();
+                    Transformer madedocxml = madexml.newTransformer();
+                    madedocxml.setOutputProperty(OutputKeys.INDENT, "yes");
+                    madedocxml.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, "3");
+                    Result writexml = new StreamResult(dir.getAbsolutePath() + "movimientos_de_partida.xml");
+                    madedocxml.transform(solitariochino.generateXml(), writexml);
+                    JOptionPane.showMessageDialog(null, "El documento XML se ha creado.",
+                            "Información", JOptionPane.INFORMATION_MESSAGE);
+                } catch (TransformerConfigurationException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (TransformerException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(this, "Archivo guardado correctamente.",
+                        "Información.", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Operación de guardado cancelada.",
+                        "Avertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar el archivo.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jMenuItemexportxmlActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonundo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonundo1ActionPerformed
+       
+    }//GEN-LAST:event_jButtonundo1ActionPerformed
+
+    private void jMenuItemundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemundoActionPerformed
+        solitariochino.undoMove();
+        jTextArea1.setText("");
+        jTextArea1.setText(solitariochino.toString());
+    }//GEN-LAST:event_jMenuItemundoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private String[] getList(File file){
+        try {
+            String [] listlevel=null;
+            int level=0;
+            BufferedReader bufferread = null;
+            bufferread = new BufferedReader(new FileReader(file));
+            String tmp = bufferread.readLine();
+            if (tmp != null) {
+                while (tmp.equalsIgnoreCase("LEVELS")==false) {
+                    tmp = bufferread.readLine();
+                }
+                tmp = bufferread.readLine();
+                level = Integer.valueOf(tmp);
+                listlevel = new String[level];
+                for (int i = 0; i < listlevel.length; i++) {
+                    listlevel[i] = "Nivel " + (i + 1);
+                }
+            }
+            return listlevel;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    Calendar time =Calendar.getInstance();
+    
+    public void Time( int milliseconds){
+        
+        try {
+            Thread theartime = new Thread();
+            theartime.start();
+            theartime.join(milliseconds);
+            
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -376,22 +773,57 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonacept;
-    private javax.swing.JButton jButtonexamine;
-    private javax.swing.JButton jButtongeneratexml;
+    private javax.swing.JButton jButtonexamine1;
     private javax.swing.JButton jButtonload;
     private javax.swing.JButton jButtonmove;
     private javax.swing.JButton jButtonundo;
-    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JButton jButtonundo1;
+    private javax.swing.JComboBox jComboBoxlevel;
+    private javax.swing.JDialog jDialogsetting;
+    private javax.swing.JFileChooser jFileChooseropen;
+    private javax.swing.JInternalFrame jInternalFramecreategame;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItemexit;
+    private javax.swing.JMenuItem jMenuItemexportxml;
+    private javax.swing.JMenuItem jMenuItemnewgame;
+    private javax.swing.JMenuItem jMenuItemopen;
+    private javax.swing.JMenuItem jMenuItemreundo;
+    private javax.swing.JMenuItem jMenuItemundo;
+    private javax.swing.JMenu jMenuedit;
+    private javax.swing.JMenu jMenusetting;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldxin;
     private javax.swing.JTextField jTextFieldxout;
     private javax.swing.JTextField jTextFieldyin;
     private javax.swing.JTextField jTextFieldyout;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
