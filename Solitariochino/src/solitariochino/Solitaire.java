@@ -48,6 +48,8 @@ public class Solitaire {
     private File file= null;
     private int level=0;
     private String [] listlevel=null;
+    private int all=0;
+    private int numall=0;
     
     private JPanel Panel;
 
@@ -122,6 +124,7 @@ public class Solitaire {
                 }
             }
         }
+        this.setall();
     }
     
     /**
@@ -231,21 +234,23 @@ public class Solitaire {
         }
     }
     /**
-     * Revisar método.
+     * 
      * @param coordinatex
      * @param coordinatey
      * @return 
      */
     protected boolean isvalidcoordinate(int coordinatex, int coordinatey) {
         
-            if (coordinatex < (AUXCENTER - AUXS) || coordinatex > (AUXCENTER + AUXS)) {
-                if (coordinatey < (AUXCENTER - AUXS) || coordinatey > (AUXCENTER + AUXS)) {
-                    return false;
-                }else{
+            if ((0<=coordinatex  && coordinatex < (DIMENSIONX) )&& 
+                    board[coordinatex][coordinatey]!=isnull ) {
+                if ((0<=coordinatey && coordinatey < (DIMENSIONY))&& 
+                        board[coordinatex][coordinatey]!=isnull) {
                     return true;
+                }else{
+                    return false;
                 }
             }else{
-                return true;
+                return false;
             }
     }
     /**
@@ -275,6 +280,7 @@ public class Solitaire {
                 }
             }
             this.saveMove();
+            numall++;
         }
     }
 
@@ -282,8 +288,9 @@ public class Solitaire {
    public String toString(){
        String aux="";
         for (int x=0; x<board.length; x++) {
+            aux+="       ";
             for (int y = 0; y<board[0].length; y++) {
-                aux += String.valueOf(board[x][y]);
+                aux += String.valueOf(board[x][y])+" ";
             }
             aux+="\n";
         }
@@ -320,35 +327,35 @@ public class Solitaire {
     * 
     */
    public void undoMove(){
-       if(!moves.isEmpty()){
+       if (!moves.isEmpty()) {
            int[] tmp;
-           tmp=moves.get(Moves.getAccess()-1).getCoord() ;
+           tmp = moves.get(Moves.getAccess() - 1).getCoord();
            this.setCellUndo(tmp[0], tmp[1], full);
-           this.setCellUndo(tmp [2], tmp[3], empty);
-           if(tmp[0]==tmp[2]){
-               if(tmp[1]>tmp[3]){
-                   this.setCellUndo(tmp[0], tmp[3]+1, full);
-               }else{
-                   this.setCellUndo(tmp[0], tmp[3]-1, full);
+           this.setCellUndo(tmp[2], tmp[3], empty);
+           if (tmp[0] == tmp[2]) {
+               if (tmp[1] > tmp[3]) {
+                   this.setCellUndo(tmp[0], tmp[3] + 1, full);
+               } else {
+                   this.setCellUndo(tmp[0], tmp[3] - 1, full);
                }
            }
-           if(tmp[1]==tmp[3]){
-               if(tmp[0]>tmp[2]){
-                   this.setCellUndo(tmp[2]+1, tmp[1], full);
-               }else{
-                   this.setCellUndo(tmp[2]-1, tmp[1], full);
+           if (tmp[1] == tmp[3]) {
+               if (tmp[0] > tmp[2]) {
+                   this.setCellUndo(tmp[2] + 1, tmp[1], full);
+               } else {
+                   this.setCellUndo(tmp[2] - 1, tmp[1], full);
                }
            }
-           
-       }else{
-           JOptionPane.showMessageDialog(null,"No hay movimientos que deshacer" , "Información",
+           numall--;
+       } else {
+           JOptionPane.showMessageDialog(null, "No hay movimientos que deshacer", "Información",
                    JOptionPane.INFORMATION_MESSAGE);
        }
    }
     /**
      * 
      */
-      public void reUndoMove(){
+   public void reUndoMove(){
        if(!(moves.size()==Moves.getAccess())){
            int[] tmp;
            tmp=moves.get(Moves.getAccess()+1).getCoord();
@@ -498,7 +505,7 @@ public class Solitaire {
     * @param namefile
     * @param level 
     */
-   private void readFile(String namefile, int level){
+    public void readFile(String namefile, int level){
        File file1= new File(namefile);
        this.readFile(file1, level);
    }
@@ -655,7 +662,27 @@ public class Solitaire {
        
       this.readFile(file, level);
    }
-   
-   
-}
-   
+   /**
+    * 
+    */
+   private void setall(){
+       if(!(board==null)){
+           for (Object[] board1 : board) {
+               for (Object board11 : board1) {
+                   if (board11 == full) {
+                       all++;
+                   }
+               }
+           }
+       }
+       
+   }
+
+    public int getAll() {
+        return all;
+    }
+
+    public int getNumall() {
+        return numall;
+    }
+} 
