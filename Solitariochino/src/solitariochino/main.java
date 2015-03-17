@@ -62,6 +62,7 @@ public class main extends javax.swing.JFrame {
         jDialogsetting.setSize(500, 400);
         jLayeredPane2.setVisible(true);
         jDesktopPane1.setVisible(false);
+        jCheckBoxMenuItemViewModeText.setSelected(true);
         
 
     }
@@ -112,7 +113,7 @@ public class main extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItemundomenu = new javax.swing.JMenuItem();
         jMenuItemreundomenu = new javax.swing.JMenuItem();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        buttonGroupView = new javax.swing.ButtonGroup();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -140,9 +141,11 @@ public class main extends javax.swing.JFrame {
         jToggleButtonposition = new javax.swing.JToggleButton();
         jButtondown = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreadisplay = new javax.swing.JTextArea();
+        jPanelDisplayGraf = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemopen = new javax.swing.JMenuItem();
@@ -160,8 +163,14 @@ public class main extends javax.swing.JFrame {
         jMenuItemundo = new javax.swing.JMenuItem();
         jMenuItemreundo = new javax.swing.JMenuItem();
         jMenuHistory = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItemmakegame = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jCheckBoxMenuItemViewModeText = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItemViewModeGraf = new javax.swing.JCheckBoxMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jRadioButtonMenuItemBackground = new javax.swing.JRadioButtonMenuItem();
         jMenusetting = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -422,20 +431,6 @@ public class main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jDesktopPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jDesktopPane1.setOpaque(false);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-        );
-
         jLayeredPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setComponentPopupMenu(jPopupMenu1);
@@ -608,7 +603,7 @@ public class main extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonmove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -690,10 +685,6 @@ public class main extends javax.swing.JFrame {
         jPanel9.setOpaque(false);
         jPanel9.setLayout(null);
 
-        jLabel2.setComponentPopupMenu(jPopupMenu1);
-        jPanel9.add(jLabel2);
-        jLabel2.setBounds(10, 10, 220, 200);
-
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
 
@@ -701,11 +692,30 @@ public class main extends javax.swing.JFrame {
         jTextAreadisplay.setColumns(20);
         jTextAreadisplay.setRows(5);
         jTextAreadisplay.setBorder(null);
+        jTextAreadisplay.setComponentPopupMenu(jPopupMenu1);
         jTextAreadisplay.setOpaque(false);
         jScrollPane1.setViewportView(jTextAreadisplay);
 
         jPanel9.add(jScrollPane1);
         jScrollPane1.setBounds(10, 10, 220, 200);
+
+        javax.swing.GroupLayout jPanelDisplayGrafLayout = new javax.swing.GroupLayout(jPanelDisplayGraf);
+        jPanelDisplayGraf.setLayout(jPanelDisplayGrafLayout);
+        jPanelDisplayGrafLayout.setHorizontalGroup(
+            jPanelDisplayGrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
+        );
+        jPanelDisplayGrafLayout.setVerticalGroup(
+            jPanelDisplayGrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanelDisplayGraf);
+        jPanelDisplayGraf.setBounds(10, 10, 230, 200);
+
+        jLabel2.setComponentPopupMenu(jPopupMenu1);
+        jPanel9.add(jLabel2);
+        jLabel2.setBounds(10, 10, 220, 200);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -721,33 +731,56 @@ public class main extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelgamepad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+
+        jDesktopPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jDesktopPane1.setOpaque(false);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
         jLayeredPane2Layout.setHorizontalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                    .addGap(7, 7, 7)
+                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jLayeredPane2.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jDesktopPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuFile.setText("Juego");
 
@@ -834,6 +867,8 @@ public class main extends javax.swing.JFrame {
         jMenuedit.add(jMenuItemreundo);
 
         jMenuHistory.setText("Historial");
+        jMenuHistory.add(jMenuItem3);
+
         jMenuedit.add(jMenuHistory);
         jMenuedit.add(jSeparator5);
 
@@ -847,6 +882,44 @@ public class main extends javax.swing.JFrame {
         jMenuedit.add(jMenuItemmakegame);
 
         jMenuBar1.add(jMenuedit);
+
+        jMenu3.setText("Ver");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
+
+        buttonGroupView.add(jCheckBoxMenuItemViewModeText);
+        jCheckBoxMenuItemViewModeText.setSelected(true);
+        jCheckBoxMenuItemViewModeText.setText("Modo Texto");
+        jCheckBoxMenuItemViewModeText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItemViewModeTextActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jCheckBoxMenuItemViewModeText);
+
+        buttonGroupView.add(jCheckBoxMenuItemViewModeGraf);
+        jCheckBoxMenuItemViewModeGraf.setText("Modo Gráfico");
+        jCheckBoxMenuItemViewModeGraf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItemViewModeGrafActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jCheckBoxMenuItemViewModeGraf);
+        jMenu3.add(jSeparator7);
+
+        jRadioButtonMenuItemBackground.setSelected(true);
+        jRadioButtonMenuItemBackground.setText("Tema");
+        jRadioButtonMenuItemBackground.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItemBackgroundActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRadioButtonMenuItemBackground);
+
+        jMenuBar1.add(jMenu3);
 
         jMenusetting.setText("Opciones");
         jMenusetting.addActionListener(new java.awt.event.ActionListener() {
@@ -889,25 +962,13 @@ public class main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 19, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(14, 14, 14)
-                    .addComponent(jDesktopPane1)
-                    .addContainerGap()))
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 483, Short.MAX_VALUE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -967,8 +1028,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenusettingActionPerformed
 
     private void jMenuItemmakegameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemmakegameActionPerformed
-        if (jLayeredPane2.isVisible()) {
-            jLayeredPane2.setVisible(false);
+        if (jPanel1.isVisible()) {
+            jPanel1.setVisible(false);
             jDesktopPane1.setVisible(true);
             jDesktopPane1.setSize(800, 600);
             jInternalFramecreategame.pack();
@@ -983,7 +1044,7 @@ public class main extends javax.swing.JFrame {
             try {
                 jInternalFramecreategame.setVisible(false);
                 jInternalFramecreategame.setClosed(true);
-                jLayeredPane2.setVisible(true);
+                jPanel1.setVisible(true);
                 jDesktopPane1.setVisible(false);
                 jMenuItemmakegame.setText("Crear juego");
             } catch (PropertyVetoException ex) {
@@ -1343,14 +1404,42 @@ public class main extends javax.swing.JFrame {
        if(solitariochino.gethistory().size()> 0){
           jMenuHistory.setEnabled(true);
           
-          for(int i=0; i<3; i++){
-              jMenuHistory.add(new JMenuItem(solitariochino.gethistory().get(i).toString()));
-          }
+         
+              jMenuHistory.add(new JMenuItem(solitariochino.gethistory().get(0).toString()));
+          
       }else{
           jMenuHistory.setEnabled(false);
       }
         
     }//GEN-LAST:event_jMenueditMouseMoved
+
+    private void jCheckBoxMenuItemViewModeGrafActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemViewModeGrafActionPerformed
+        if(jCheckBoxMenuItemViewModeGraf.isSelected()){
+               jCheckBoxMenuItemViewModeText.setSelected(true);   
+           }else{
+               jCheckBoxMenuItemViewModeGraf.setSelected(true);
+           }
+        jTextAreadisplay.setVisible(jCheckBoxMenuItemViewModeText.isSelected());
+        jPanelDisplayGraf.setVisible(jCheckBoxMenuItemViewModeGraf.isSelected());
+    }//GEN-LAST:event_jCheckBoxMenuItemViewModeGrafActionPerformed
+
+    private void jCheckBoxMenuItemViewModeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemViewModeTextActionPerformed
+           if(jCheckBoxMenuItemViewModeText.isSelected()){
+               jCheckBoxMenuItemViewModeGraf.setSelected(true);
+           }else{
+               jCheckBoxMenuItemViewModeText.setSelected(true);
+           }
+           jTextAreadisplay.setVisible(jCheckBoxMenuItemViewModeText.isSelected());
+           jPanelDisplayGraf.setVisible(jCheckBoxMenuItemViewModeGraf.isSelected());
+    }//GEN-LAST:event_jCheckBoxMenuItemViewModeTextActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jRadioButtonMenuItemBackgroundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemBackgroundActionPerformed
+        
+    }//GEN-LAST:event_jRadioButtonMenuItemBackgroundActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1388,6 +1477,7 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupView;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1403,6 +1493,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton jButtonundo1;
     private javax.swing.JButton jButtonup;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItemViewModeGraf;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItemViewModeText;
     private javax.swing.JComboBox jComboBoxlevel;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialogsetting;
@@ -1416,6 +1508,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -1429,6 +1522,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -1459,9 +1553,11 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelDisplayGraf;
     private javax.swing.JPanel jPanelgamepad;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemBackground;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -1470,6 +1566,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;

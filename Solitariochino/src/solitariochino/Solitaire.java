@@ -208,7 +208,7 @@ public class Solitaire {
      * @param coordinatey
      */
     public void setcoordinatein(int coordinatex, int coordinatey) {
-        if (board[coordinatex][coordinatey] == full) {
+        if (this.isvalidcoordinate(coordinatex, coordinatey)) {
             this.coordinatexin = coordinatex;
             this.coordinateyin = coordinatey;
         } else {
@@ -223,14 +223,9 @@ public class Solitaire {
      * @param coordinatey
      */
     public void setcoordinateout(int coordinatex, int coordinatey) {
-        if (board[coordinatex][coordinatey] == empty) {
-            if (coordinatexin != coordinateyout && coordinatexin != coordinateyout) {
+        if (this.isvalidcoordinate(coordinatex, coordinatey)) {
                 this.coordinatexout = coordinatex;
                 this.coordinateyout = coordinatey;
-            } else {
-                JOptionPane.showMessageDialog(null, "Posición  \n"
-                        + "Elija una posición correcta.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            }
         } else {
             JOptionPane.showMessageDialog(null, "Posición del elemento está vacia \n"
                     + "Elija una posición correcta.", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -245,10 +240,9 @@ public class Solitaire {
      */
     protected boolean isvalidcoordinate(int coordinatex, int coordinatey) {
 
-        if ((0 <= coordinatex && coordinatex < (DIMENSIONX))
-                && board[coordinatex][coordinatey] != isnull) {
-            if ((0 <= coordinatey && coordinatey < (DIMENSIONY))
-                    && board[coordinatex][coordinatey] != isnull) {
+        if ((0 <= coordinatex && coordinatex < DIMENSIONX)) {
+            if ((0 <= coordinatey && coordinatey < DIMENSIONY) &&
+                    board[coordinatex][coordinatey] != isnull) {
                 return true;
             } else {
                 return false;
@@ -265,8 +259,8 @@ public class Solitaire {
      */
     public void setMove() {
         if (this.isCorrectMove()&& 
-                this.isvalidcoordinate(coordinatexin, coordinateyin)&&
-                this.isvalidcoordinate(coordinatexout, coordinateyout)) {
+                (board[coordinatexin][coordinateyin] == full&&
+                board[coordinatexout][coordinateyout] == empty)) {
             if (this.coordinatexin == this.coordinatexout) {
                 if (this.coordinateyin > this.coordinateyout) {
                     board[coordinatexin][coordinateyin] = empty;
@@ -350,7 +344,7 @@ public class Solitaire {
      *Método que deshace el último movimiento que se guardado o rehecho.
      */
     public void undoMove() {
-        if (!moves.isEmpty() && numundo < moves.size()) {
+        if (!moves.isEmpty()&& (numundo>=0 && numundo < moves.size())) {
             int[] tmp;
             tmp = moves.get(moves.size() - 1 - numundo).getCoord();
             this.setCellUndo(tmp[0], tmp[1], full);
@@ -384,7 +378,7 @@ public class Solitaire {
      *Método que rehace el último movimiento que se a deshecho.
      */
     public void reUndoMove() {
-        if (moves.size() > numundo) {
+        if (moves.size() > numundo && numundo >=0) {
             int[] tmp;
             tmp = moves.get(moves.size() - numundo).getCoord();
             this.setCellUndo(tmp[0], tmp[1], empty);
@@ -490,7 +484,7 @@ public class Solitaire {
         if (!moveItem) {
             this.setcoordinatein(coordinatexin - 1, coordinateyin);
         } else {
-            this.setcoordinateout(coordinatexin - 1, coordinateyin);
+            this.setcoordinateout(coordinatexout - 1, coordinateyout);
         }
 
     }
@@ -506,7 +500,7 @@ public class Solitaire {
         if (!moveItem) {
             this.setcoordinatein(coordinatexin + 1, coordinateyin);
         } else {
-            this.setcoordinateout(coordinatexin + 1, coordinateyin);
+            this.setcoordinateout(coordinatexout + 1, coordinateyout);
         }
     }
 
@@ -521,7 +515,7 @@ public class Solitaire {
         if (!moveItem) {
             this.setcoordinatein(coordinatexin, coordinateyin - 1);
         } else {
-            this.setcoordinateout(coordinatexin, coordinateyin - 1);
+            this.setcoordinateout(coordinatexout, coordinateyout - 1);
         }
     }
 
@@ -536,7 +530,7 @@ public class Solitaire {
         if (!moveItem) {
             this.setcoordinatein(coordinatexin, coordinateyin + 1);
         } else {
-            this.setcoordinateout(coordinatexin, coordinateyin + 1);
+            this.setcoordinateout(coordinatexout, coordinateyout + 1);
         }
     }
 
