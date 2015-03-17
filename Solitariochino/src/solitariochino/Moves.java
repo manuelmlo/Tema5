@@ -10,51 +10,41 @@ package solitariochino;
  * @author Manuel Manzano López.
  */
 public class Moves {
-    private static int access=0;
-    private int coordX=0;
-    private int coordY=0;
-    private int coord1X=0;
-    private int coord1Y=0;
-    private int element=0;
-    
-    public Moves(int itemX, int itemY, int item1X, int item1Y){
-        this.coordX=itemX;
-        this.coordY=itemY;
-        this.coord1X=item1X;
-        this.coord1Y=item1Y;
-        access+=1;
-        element=access;
-    }
-    static int getAccess(){
-        
-        return access;
-        
+
+    private int coordX = 0;
+    private int coordY = 0;
+    private int coord1X = 0;
+    private int coord1Y = 0;
+
+    public Moves(int itemX, int itemY, int item1X, int item1Y) {
+        this.coordX = itemX;
+        this.coordY = itemY;
+        this.coord1X = item1X;
+        this.coord1Y = item1Y;
     }
 
     public int getCoordX() {
-        access=element;
         return coordX;
     }
 
     public int getCoordY() {
-        access=element;
         return coordY;
     }
 
     public int getCoord1X() {
-        access=element;
         return coord1X;
     }
 
     public int getCoord1Y() {
-        access=element;
         return coord1Y;
     }
-    
-    public int[] getCoord(){
-        access=element;
-        return new int[]{coordX,coordY,coord1X,coord1Y};
+
+    public int[] getCoord() {
+        return new int[]{coordX, coordY, coord1X, coord1Y};
     }
-            
-    
+    @Override
+    public String toString(){
+        int[] tmp= this.getCoord();
+        return "Inicial:"+tmp[0]+", "+tmp[1]+ "/ Final:"+tmp[2]+", "+tmp[3];
+    }
 }
