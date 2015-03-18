@@ -32,9 +32,9 @@ public class Solitaire {
 
     protected int numtype = 3;
     protected Object[][] board;
-    protected Object empty = 1;
-    protected Object full = 0;
-    protected Object isnull = 'x';
+    protected Object empty = 'X';
+    protected Object full = 1;
+    protected Object isnull = 0;
     private final int AUXS = 1;
     private final int AUXCENTER = 3;
     private int DIMENSIONX = 7;
@@ -51,6 +51,8 @@ public class Solitaire {
     private int all;
     private int numall;
     private int[] winner={3,3};
+
+
 
     /**
      *
@@ -228,7 +230,7 @@ public class Solitaire {
                 this.coordinateyout = coordinatey;
         } else {
             JOptionPane.showMessageDialog(null, "Posición del elemento está vacia \n"
-                    + "Elija una posición correcta.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    + "Elija una posición correcta.", "Información", JOptionPane.INFORMATION_MESSAGE); 
         }
     }
 
@@ -241,8 +243,7 @@ public class Solitaire {
     protected boolean isvalidcoordinate(int coordinatex, int coordinatey) {
 
         if ((0 <= coordinatex && coordinatex < DIMENSIONX)) {
-            if ((0 <= coordinatey && coordinatey < DIMENSIONY) &&
-                    board[coordinatex][coordinatey] != isnull) {
+            if (0 <= coordinatey && coordinatey < DIMENSIONY) {
                 return true;
             } else {
                 return false;
@@ -306,12 +307,21 @@ public class Solitaire {
     }
 
     public void toString(JTextArea jTextArea) {
+        int columns = (board.length);
+        int rows = (board[0].length);
         jTextArea.setText("");
         String aux = "";
+        for (int i = 0; i < rows; i++) {
+            aux = "\n";
+        }
         for (Object[] tablero1 : board) {
+            for (int i = 0; i < columns; i++) {
+                aux = " ";
+            }
             for (int y = 0; y < board[0].length; y++) {
                 aux += String.valueOf(tablero1[y]);
             }
+            
             aux += "\n";
         }
         System.out.println(aux);
@@ -552,14 +562,13 @@ public class Solitaire {
      */
     public void readFile(File file, int level) {
         try {
-            BufferedReader bufferread;
+            BufferedReader bufferread = null;
             bufferread = new BufferedReader(new FileReader(file));
             String tmp = bufferread.readLine();
             if (tmp != null) {
                 tmp = bufferread.readLine();
 
-                if (tmp.equalsIgnoreCase("DOCUMENT LEVEL") == false
-                        && tmp.contains(String.valueOf(tmp.length() / 2))) {
+                if (tmp.equalsIgnoreCase("DOCUMENT LEVEL") == false) {
 
                     while (tmp.equalsIgnoreCase("Level" + String.valueOf(level)) == false) {
                         tmp = bufferread.readLine();
@@ -585,6 +594,7 @@ public class Solitaire {
                     if (!(tmp == null)) {
                         DIMENSIONY = Integer.valueOf(tmp);
                     }
+                    board=null;
                     board = new Object[DIMENSIONX][DIMENSIONY];
                     while (tmp.equalsIgnoreCase("FULL") == false) {
                         tmp = bufferread.readLine();
@@ -610,15 +620,15 @@ public class Solitaire {
                     while (tmp.equalsIgnoreCase("START") == false) {
                         tmp = bufferread.readLine();
                     }
-                    if (tmp.equalsIgnoreCase("START") == false) {
+                    if (tmp.equalsIgnoreCase("START") == true) {
                         tmp = bufferread.readLine();
-
-                        while (tmp.equalsIgnoreCase("END") == true) {
-                            tmp = bufferread.readLine();
-                            int x = 0;
+                        int x = 0;
+                        while (tmp.equalsIgnoreCase("END") == false) {
                             for (int y = 0; y < tmp.length(); y++) {
                                 board[x][y] = tmp.charAt(y);
                             }
+                            x++;
+                            tmp = bufferread.readLine();
                         }
                     }
                 }
@@ -685,8 +695,13 @@ public class Solitaire {
                 tmp = bufferread.readLine();
                 this.level = Integer.valueOf(tmp);
                 listlevel = new String[this.level];
+                
                 for (int i = 0; i < listlevel.length; i++) {
-                    listlevel[i] = "Nivel " + (i + 1);
+                    while(tmp.equalsIgnoreCase("NAME") == false){
+                        tmp = bufferread.readLine();
+                    }
+                    tmp = bufferread.readLine();
+                    listlevel[i] = "Nivel " + (i + 1)+": "+tmp;
                 }
             }
         } catch (FileNotFoundException ex) {
@@ -738,7 +753,7 @@ public class Solitaire {
      * @param dimensionX
      * @param dimensionY 
      */
-    public void newBoard(int dimensionX, int dimensionY){
+    private void newBoard(int dimensionX, int dimensionY){
         board= null;
         board = new Object[dimensionX][dimensionY];
         
@@ -760,6 +775,31 @@ public class Solitaire {
     public ArrayList<Moves> gethistory(){
         return moves;
     }
-   
-
+   /**
+    * 
+    */
+    public void setMoves(){
+         moves=null;
+    }
+    /**
+     * 
+     * @param numundo 
+     */
+    private void setNumundo() {
+        this.numundo = numundo;
+    }
+    /**
+     * 
+     * @param numall 
+     */
+    private void setNumall() {
+        this.numall = numall;
+    }
+    
+    public void setDefault(){
+        this.setMoves();
+        this.setall();
+        this.setNumall();
+        this.setNumundo();
+    }
 }

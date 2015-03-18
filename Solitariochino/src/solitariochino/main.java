@@ -78,17 +78,22 @@ public class main extends javax.swing.JFrame {
 
         jDialogsetting = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPanesetting = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jComboBoxlevel = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jButtonexamine1 = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaPreview = new javax.swing.JTextArea();
+        jTextFieldfile = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonoksetting = new javax.swing.JButton();
+        jButtoncancelsetting = new javax.swing.JButton();
         jInternalFramecreategame = new javax.swing.JInternalFrame();
         jToolBar1 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
@@ -130,8 +135,6 @@ public class main extends javax.swing.JFrame {
         jTextFieldxout = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldyout = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jPanelgamepad = new javax.swing.JPanel();
@@ -144,7 +147,7 @@ public class main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreadisplay = new javax.swing.JTextArea();
         jPanelDisplayGraf = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelbackground = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
@@ -166,14 +169,14 @@ public class main extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItemmakegame = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuView = new javax.swing.JMenu();
         jCheckBoxMenuItemViewModeText = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItemViewModeGraf = new javax.swing.JCheckBoxMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jRadioButtonMenuItemBackground = new javax.swing.JRadioButtonMenuItem();
         jMenusetting = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuhelp = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -198,41 +201,80 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Previsualización"));
+
+        jTextAreaPreview.setEditable(false);
+        jTextAreaPreview.setBackground(new java.awt.Color(240, 240, 240));
+        jTextAreaPreview.setColumns(20);
+        jTextAreaPreview.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaPreview);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+
+        jLabel7.setText("Archivo:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxlevel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonexamine1)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBoxlevel, 0, 200, Short.MAX_VALUE)
+                    .addComponent(jTextFieldfile))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButtonexamine1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxlevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonexamine1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxlevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))))
         );
 
-        jTabbedPane1.addTab("Juego", jPanel3);
+        jTabbedPanesetting.addTab("Juego", jPanel3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 434, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
+            .addGap(0, 219, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("tab1", jPanel4);
@@ -241,21 +283,26 @@ public class main extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 434, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
+            .addGap(0, 219, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("tab2", jPanel5);
 
-        jTabbedPane1.addTab("Personalización", jTabbedPane3);
-        jTabbedPane1.addTab("Idioma", jTabbedPane4);
+        jTabbedPanesetting.addTab("Personalización", jTabbedPane3);
+        jTabbedPanesetting.addTab("Idioma", jTabbedPane4);
 
-        jButton1.setText("jButton1");
+        jButtonoksetting.setText("Aceptar");
+        jButtonoksetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonoksettingActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jButtoncancelsetting.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -264,23 +311,23 @@ public class main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(jTabbedPanesetting)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonoksetting)
+                        .addGap(21, 21, 21)
+                        .addComponent(jButtoncancelsetting)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPanesetting)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonoksetting)
+                    .addComponent(jButtoncancelsetting))
                 .addContainerGap())
         );
 
@@ -288,11 +335,13 @@ public class main extends javax.swing.JFrame {
         jDialogsetting.getContentPane().setLayout(jDialogsettingLayout);
         jDialogsettingLayout.setHorizontalGroup(
             jDialogsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
         );
         jDialogsettingLayout.setVerticalGroup(
             jDialogsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jDialogsettingLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jInternalFramecreategame.setVisible(true);
@@ -439,6 +488,7 @@ public class main extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/undo.png"))); // NOI18N
+        jButtonundo.setToolTipText("Deshacer");
         jButtonundo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonundoActionPerformed(evt);
@@ -446,6 +496,7 @@ public class main extends javax.swing.JFrame {
         });
 
         jButtonundo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reundo.png"))); // NOI18N
+        jButtonundo1.setToolTipText("Rehacer");
         jButtonundo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonundo1ActionPerformed(evt);
@@ -525,13 +576,6 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton6.setText("jButton6");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Progreso"));
 
         jProgressBar1.setForeground(new java.awt.Color(0, 255, 0));
@@ -575,15 +619,8 @@ public class main extends javax.swing.JFrame {
                         .addComponent(jButtonundo)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -593,11 +630,7 @@ public class main extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonundo1)
                     .addComponent(jButtonundo))
-                .addGap(38, 38, 38)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(91, 91, 91)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -713,9 +746,9 @@ public class main extends javax.swing.JFrame {
         jPanel9.add(jPanelDisplayGraf);
         jPanelDisplayGraf.setBounds(10, 10, 230, 200);
 
-        jLabel2.setComponentPopupMenu(jPopupMenu1);
-        jPanel9.add(jLabel2);
-        jLabel2.setBounds(10, 10, 220, 200);
+        jLabelbackground.setComponentPopupMenu(jPopupMenu1);
+        jPanel9.add(jLabelbackground);
+        jLabelbackground.setBounds(10, 10, 220, 200);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -883,10 +916,10 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuedit);
 
-        jMenu3.setText("Ver");
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuView.setText("Ver");
+        jMenuView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
+                jMenuViewActionPerformed(evt);
             }
         });
 
@@ -898,7 +931,7 @@ public class main extends javax.swing.JFrame {
                 jCheckBoxMenuItemViewModeTextActionPerformed(evt);
             }
         });
-        jMenu3.add(jCheckBoxMenuItemViewModeText);
+        jMenuView.add(jCheckBoxMenuItemViewModeText);
 
         buttonGroupView.add(jCheckBoxMenuItemViewModeGraf);
         jCheckBoxMenuItemViewModeGraf.setText("Modo Gráfico");
@@ -907,8 +940,8 @@ public class main extends javax.swing.JFrame {
                 jCheckBoxMenuItemViewModeGrafActionPerformed(evt);
             }
         });
-        jMenu3.add(jCheckBoxMenuItemViewModeGraf);
-        jMenu3.add(jSeparator7);
+        jMenuView.add(jCheckBoxMenuItemViewModeGraf);
+        jMenuView.add(jSeparator7);
 
         jRadioButtonMenuItemBackground.setSelected(true);
         jRadioButtonMenuItemBackground.setText("Tema");
@@ -917,9 +950,9 @@ public class main extends javax.swing.JFrame {
                 jRadioButtonMenuItemBackgroundActionPerformed(evt);
             }
         });
-        jMenu3.add(jRadioButtonMenuItemBackground);
+        jMenuView.add(jRadioButtonMenuItemBackground);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuView);
 
         jMenusetting.setText("Opciones");
         jMenusetting.addActionListener(new java.awt.event.ActionListener() {
@@ -939,7 +972,7 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenusetting);
 
-        jMenu5.setText("Ayuda");
+        jMenuhelp.setText("Ayuda");
 
         jMenu2.setText("Ayuda");
 
@@ -949,12 +982,12 @@ public class main extends javax.swing.JFrame {
         jMenuItem11.setText("jMenuItem11");
         jMenu2.add(jMenuItem11);
 
-        jMenu5.add(jMenu2);
+        jMenuhelp.add(jMenu2);
 
         jMenu4.setText("Acerca de");
-        jMenu5.add(jMenu4);
+        jMenuhelp.add(jMenu4);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jMenuhelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -967,8 +1000,8 @@ public class main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 483, Short.MAX_VALUE)
-                .addGap(26, 26, 26))
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -1094,6 +1127,7 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.",
                     "Información.", JOptionPane.INFORMATION_MESSAGE);
             jComboBoxlevel.setModel(new DefaultComboBoxModel(solitariochino.getListlevel()));
+            jTextFieldfile.setText(file.getAbsolutePath());
         } else {
             JOptionPane.showMessageDialog(this, "No se ha cargado archivo niveles.",
                     "Información.", JOptionPane.INFORMATION_MESSAGE);
@@ -1101,7 +1135,10 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonexamine1ActionPerformed
 
     private void jComboBoxlevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxlevelActionPerformed
-        // TODO add your handling code here:
+       solitariochino.setLevel(jComboBoxlevel.getSelectedIndex()+1);
+       jTextAreaPreview.setText("");
+       jTextAreaPreview.setText(solitariochino.toString());
+       
     }//GEN-LAST:event_jComboBoxlevelActionPerformed
 
     private void jMenuItemexportxmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemexportxmlActionPerformed
@@ -1189,9 +1226,11 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemreundomenuActionPerformed
 
     private void jMenuItemrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemrefreshActionPerformed
-        jPopupMenu1.setVisible(false);
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
+//        jPopupMenu1.setVisible(false);
+//        jTextAreadisplay.setText("");
+//        jTextAreadisplay.setText(solitariochino.toString());
+          jPopupMenu1.setVisible(false);
+          solitariochino.toString(jTextAreadisplay);
     }//GEN-LAST:event_jMenuItemrefreshActionPerformed
 
     private void jMenuItemundomenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemundomenuActionPerformed
@@ -1229,14 +1268,14 @@ public class main extends javax.swing.JFrame {
     private void jButtonupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonupActionPerformed
         solitariochino.setMoveUp(jToggleButtonposition.isSelected());
         jTextFieldxin.setText(String.valueOf(1 + solitariochino.coordinatexin));
-        jTextFieldxout.setText(String.valueOf(1 + solitariochino.coordinateyout));
+        jTextFieldxout.setText(String.valueOf(1 + solitariochino.coordinatexout));
     }//GEN-LAST:event_jButtonupActionPerformed
 
     private void jButtondownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtondownActionPerformed
         solitariochino.setMoveDown(jToggleButtonposition.isSelected());
         jTextFieldxin.setText(String.valueOf(1 + solitariochino.coordinatexin));
-        jTextFieldxout.setText(String.valueOf(1 + solitariochino.coordinateyout));
-
+        jTextFieldxout.setText(String.valueOf(1 + solitariochino.coordinatexout));
+        
     }//GEN-LAST:event_jButtondownActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -1258,142 +1297,6 @@ public class main extends javax.swing.JFrame {
         jTextAreadisplay.setText("");
         jTextAreadisplay.setText(solitariochino.toString());
     }//GEN-LAST:event_jMenuItemnewgame1ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
-        int level = Integer.valueOf(jTextField1.getText());
-        int DIMENSIONX = 0;
-        int DIMENSIONY = 0;
-        String empty;
-        String full;
-        String isnull;
-        Object[][] board;
-        try {
-            try (BufferedReader bufferread = new BufferedReader(new FileReader("Level.txt"))) {
-                String tmp = bufferread.readLine();
-                if (tmp != null) {
-                    tmp = bufferread.readLine();
-
-                    if (tmp.equalsIgnoreCase("DOCUMENT LEVEL CODF") == false) {
-
-                        while (tmp.equalsIgnoreCase("LEVELS") == false) {
-                            tmp = bufferread.readLine();
-                        }
-                        System.out.println(tmp);
-                        tmp = bufferread.readLine();
-
-                        System.out.println(tmp);
-                        if (level <= Integer.valueOf(tmp) && level >= 0) {
-                            while (tmp.equalsIgnoreCase("Level" + String.valueOf(level)) == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-
-                            while (tmp.equalsIgnoreCase("SIZE") == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-
-                            while (tmp.equalsIgnoreCase("X") == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-                            tmp = bufferread.readLine();
-                            System.out.println(tmp);
-
-                            if (!(tmp == null)) {
-                                DIMENSIONX = Integer.valueOf(tmp);
-                            }
-
-                            while (tmp.equalsIgnoreCase("Y") == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-                            tmp = bufferread.readLine();
-                            System.out.println(tmp);
-
-                            if (!(tmp == null)) {
-                                DIMENSIONY = Integer.valueOf(tmp);
-                                System.out.println(tmp);
-
-                            }
-                            board = new Object[DIMENSIONX][DIMENSIONY];
-
-                            while (tmp.equalsIgnoreCase("FULL") == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-                            tmp = bufferread.readLine();
-
-                            if (!(tmp == null)) {
-                                full = tmp;
-                            }
-
-                            System.out.println(tmp);
-
-                            while (tmp.equalsIgnoreCase("EMPTY") == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-                            tmp = bufferread.readLine();
-
-                            if (!(tmp == null)) {
-                                empty = tmp;
-                            }
-                            System.out.println(tmp);
-
-                            while (tmp.equalsIgnoreCase("ISEMPTY") == false) {
-                                tmp = bufferread.readLine();
-
-                            }
-                            System.out.println(tmp);
-                            tmp = bufferread.readLine();
-
-                            if (!(tmp == null)) {
-                                isnull = tmp;
-                            }
-
-                            while (tmp.equalsIgnoreCase("START") == false) {
-                                tmp = bufferread.readLine();
-                            }
-                            System.out.println(tmp);
-                            if (tmp.equalsIgnoreCase("START") == false) {
-                                tmp = bufferread.readLine();
-                                bufferread.mark(1);
-                                System.out.println(tmp.length());
-                                int auxs = 0;
-                                while (tmp.equalsIgnoreCase("END") == false) {
-                                    tmp = bufferread.readLine();
-                                    auxs++;
-                                }
-                                System.out.println(auxs);
-                                bufferread.reset();
-                                while (tmp.equalsIgnoreCase("END") == false) {
-
-                                    int x = 0;
-                                    for (int y = 0; y < tmp.length() - 1; y++) {
-                                        board[x][y] = tmp.charAt(y);
-                                    }
-                                    tmp = bufferread.readLine();
-                                }
-                            }
-                        }
-                    }
-                }
-                bufferread.close();
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Solitaire.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
@@ -1433,13 +1336,23 @@ public class main extends javax.swing.JFrame {
            jPanelDisplayGraf.setVisible(jCheckBoxMenuItemViewModeGraf.isSelected());
     }//GEN-LAST:event_jCheckBoxMenuItemViewModeTextActionPerformed
 
-    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+    private void jMenuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuViewActionPerformed
         
-    }//GEN-LAST:event_jMenu3ActionPerformed
+    }//GEN-LAST:event_jMenuViewActionPerformed
 
     private void jRadioButtonMenuItemBackgroundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemBackgroundActionPerformed
-        
+        if(jRadioButtonMenuItemBackground.isSelected()){
+            jLabelbackground.setIcon(new ImageIcon(getClass().getResource("")));
+        }
     }//GEN-LAST:event_jRadioButtonMenuItemBackgroundActionPerformed
+
+    private void jButtonoksettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonoksettingActionPerformed
+        solitariochino.setDefault();
+        jDialogsetting.setVisible(false);
+        jTextAreadisplay.setText("");
+        jTextAreadisplay.setText(solitariochino.toString());
+        
+    }//GEN-LAST:event_jButtonoksettingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1478,16 +1391,15 @@ public class main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupView;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtoncancelsetting;
     private javax.swing.JButton jButtondown;
     private javax.swing.JButton jButtonexamine1;
     private javax.swing.JButton jButtonleft;
     private javax.swing.JButton jButtonmove;
+    private javax.swing.JButton jButtonoksetting;
     private javax.swing.JButton jButtonright;
     private javax.swing.JButton jButtonundo;
     private javax.swing.JButton jButtonundo1;
@@ -1500,17 +1412,16 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JDialog jDialogsetting;
     private javax.swing.JInternalFrame jInternalFramecreategame;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelbackground;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1540,11 +1451,14 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemreundomenu;
     private javax.swing.JMenuItem jMenuItemundo;
     private javax.swing.JMenuItem jMenuItemundomenu;
+    private javax.swing.JMenu jMenuView;
     private javax.swing.JMenu jMenuedit;
+    private javax.swing.JMenu jMenuhelp;
     private javax.swing.JMenu jMenusetting;
     private javax.swing.JMenu jMenusettingmenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1560,6 +1474,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemBackground;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -1567,11 +1482,12 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTabbedPane jTabbedPanesetting;
+    private javax.swing.JTextArea jTextAreaPreview;
     private javax.swing.JTextArea jTextAreadisplay;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldfile;
     private javax.swing.JTextField jTextFieldxin;
     private javax.swing.JTextField jTextFieldxout;
     private javax.swing.JTextField jTextFieldyin;
