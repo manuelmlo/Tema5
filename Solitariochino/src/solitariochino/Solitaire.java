@@ -5,6 +5,11 @@
  */
 package solitariochino;
 
+import com.sun.glass.ui.Size;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,26 +37,27 @@ import org.w3c.dom.Text;
  */
 public class Solitaire {
 
-    protected int numtype = 3;
-    protected Object[][] board;
-    protected Object empty = 'X';
-    protected Object full = 1;
-    protected Object isnull = 0;
+    private int numtype = 3;
+    private char[][] board;
+    private final char EMPTY = 'X';
+    private final char FULL = '1';
+    private final char ISEMPTY = '0';
     private final int AUXS = 1;
     private final int AUXCENTER = 3;
     private int DIMENSIONX = 7;
     private int DIMENSIONY = 7;
-    protected int coordinatexin = AUXCENTER;
-    protected int coordinateyin = AUXCENTER;
-    protected int coordinatexout = AUXCENTER;
-    protected int coordinateyout = AUXCENTER;
-    protected ArrayList<Moves> moves = new ArrayList();
-    private File file = null;
+    private int coordinatexin = AUXCENTER;
+    private int coordinateyin = AUXCENTER;
+    private int coordinatexout = AUXCENTER;
+    private int coordinateyout = AUXCENTER;
+    private ArrayList<Move> moves = new ArrayList();
+    private File file = null ;
     private int level = 0;
     private String[] listlevel = null;
-    private int numundo;
-    private int all;
-    private int numall;
+    private int numundo=0;
+    private int all=0;
+    private int numall=0;
+    private char[][] tmp;
     private int[] winner={3,3};
 
 
@@ -105,24 +113,24 @@ public class Solitaire {
      */
     protected void generategame() {
 
-        board = new Object[DIMENSIONX][DIMENSIONY];
+        board = new char[DIMENSIONX][DIMENSIONY];
 
         for (int x = 0; x < board.length; x++) {
 
             for (int y = 0; y < board[x].length; y++) {
 
                 if (x == AUXCENTER && y == AUXCENTER) {
-                    board[AUXCENTER][AUXCENTER] = empty;
+                    board[AUXCENTER][AUXCENTER] = EMPTY;
 
                 } else {
                     if (x < (AUXCENTER - AUXS) || x > (AUXCENTER + AUXS)) {
                         if (y < (AUXCENTER - AUXS) || y > (AUXCENTER + AUXS)) {
-                            board[x][y] = isnull;
+                            board[x][y] = ISEMPTY;
                         } else {
-                            board[x][y] = full;
+                            board[x][y] = FULL;
                         }
                     } else {
-                        board[x][y] = full;
+                        board[x][y] = FULL;
                     }
                 }
             }
@@ -137,19 +145,19 @@ public class Solitaire {
      * correcto las posiciones.
      */
     protected boolean isCorrectMove() {
-        boolean tmp = false;
+        boolean tmp1 = false;
         if (coordinatexin == coordinatexout) {
             if (coordinateyin > coordinateyout) {
                 if (coordinateyin == coordinateyout + 2
-                        && board[coordinateyout][coordinateyout + 1] == full) {
-                    tmp = true;
+                        && board[coordinateyout][coordinateyout + 1] == FULL) {
+                    tmp1 = true;
                 } else {
 
                 }
             } else {
                 if (coordinateyin == coordinateyout - 2
-                        && board[coordinateyout][coordinateyout - 1] == full) {
-                    tmp = true;
+                        && board[coordinateyout][coordinateyout - 1] == FULL) {
+                    tmp1 = true;
                 } else {
 
                 }
@@ -157,8 +165,8 @@ public class Solitaire {
         } else {
             if (coordinatexin > coordinatexout) {
                 if (coordinateyin == coordinateyout
-                        && board[coordinatexout + 1][coordinateyout] == full) {
-                    tmp = true;
+                        && board[coordinatexout + 1][coordinateyout] == FULL) {
+                    tmp1 = true;
 
                 } else {
 
@@ -168,8 +176,8 @@ public class Solitaire {
             }
             if (coordinatexin < coordinatexout) {
                 if (coordinateyin == coordinateyout
-                        && board[coordinatexout - 1][coordinateyout] == full) {
-                    tmp = true;
+                        && board[coordinatexout - 1][coordinateyout] == FULL) {
+                    tmp1 = true;
                 } else {
 
                 }
@@ -177,31 +185,7 @@ public class Solitaire {
 
             }
         }
-        return tmp;
-    }
-
-    /**
-     *Método que introduce el elemento vacio.
-     * @param empty Elemento correspondiente a vacio.
-     */
-    public void setEmpty(Object empty) {
-        this.empty = empty;
-    }
-
-    /**
-     *Método que introduce el elmenteo lleno.
-     * @param full Elemento correspondiente a lleno.
-     */
-    public void setFull(Object full) {
-        this.full = full;
-    }
-
-    /**
-     *Método que introduce el elemento nulo.
-     * @param isnull Elemeto correspondiente a nulo.
-     */
-    public void setIsnull(Object isnull) {
-        this.isnull = isnull;
+        return tmp1;
     }
 
     /**
@@ -260,27 +244,27 @@ public class Solitaire {
      */
     public void setMove() {
         if (this.isCorrectMove()&& 
-                (board[coordinatexin][coordinateyin] == full&&
-                board[coordinatexout][coordinateyout] == empty)) {
+                (board[coordinatexin][coordinateyin] == FULL &&
+                board[coordinatexout][coordinateyout] == EMPTY)) {
             if (this.coordinatexin == this.coordinatexout) {
                 if (this.coordinateyin > this.coordinateyout) {
-                    board[coordinatexin][coordinateyin] = empty;
-                    board[coordinatexout][coordinateyout + 1] = empty;
-                    board[coordinatexout][coordinateyout] = full;
+                    board[coordinatexin][coordinateyin] = EMPTY;
+                    board[coordinatexout][coordinateyout + 1] = EMPTY;
+                    board[coordinatexout][coordinateyout] = FULL;
                 } else {
-                    board[coordinatexin][coordinateyin] = empty;
-                    board[coordinatexout][coordinateyout - 1] = empty;
-                    board[coordinatexout][coordinateyout] = full;
+                    board[coordinatexin][coordinateyin] = EMPTY;
+                    board[coordinatexout][coordinateyout - 1] = EMPTY;
+                    board[coordinatexout][coordinateyout] = FULL;
                 }
             } else {
                 if (this.coordinatexin > this.coordinatexout) {
-                    board[coordinatexin][coordinateyin] = empty;
-                    board[coordinatexout + 1][coordinateyout] = empty;
-                    board[coordinatexout][coordinateyout] = full;
+                    board[coordinatexin][coordinateyin] = EMPTY;
+                    board[coordinatexout + 1][coordinateyout] = EMPTY;
+                    board[coordinatexout][coordinateyout] = FULL;
                 } else {
-                    board[coordinatexin][coordinateyin] = empty;
-                    board[coordinatexout - 1][coordinateyout] = empty;
-                    board[coordinatexout][coordinateyout] = full;
+                    board[coordinatexin][coordinateyin] = EMPTY;
+                    board[coordinatexout - 1][coordinateyout] = EMPTY;
+                    board[coordinatexout][coordinateyout] = FULL;
                 }
             }
             this.saveMove();
@@ -295,14 +279,16 @@ public class Solitaire {
     @Override
     public String toString() {
         String aux = "";
-        for (int x = 0; x < board.length; x++) {
+        if(board!=null){
+        for (char[] board1 : board) {
             aux += "       ";
             for (int y = 0; y < board[0].length; y++) {
-                aux += String.valueOf(board[x][y]) + " ";
+                aux += String.valueOf(board1[y]) + " ";
             }
             aux += "\n";
         }
         System.out.println(aux);
+        }
         return aux;
     }
 
@@ -314,7 +300,7 @@ public class Solitaire {
         for (int i = 0; i < rows; i++) {
             aux = "\n";
         }
-        for (Object[] tablero1 : board) {
+        for (char[] tablero1 : board) {
             for (int i = 0; i < columns; i++) {
                 aux = " ";
             }
@@ -327,27 +313,77 @@ public class Solitaire {
         System.out.println(aux);
         jTextArea.setText(aux);
     }
+    
+    public void toGraphics(JPanel jpanel) {
+        final Dimension size = new Dimension(jpanel.getX() / this.DIMENSIONX, jpanel.getY() / this.DIMENSIONY);
+        final Point point = new Point(size.height / 2, size.width / 2);
+        Color cEmpty = Color.GRAY;
+        Color cFull = Color.green;
+        Color cIsempty = Color.WHITE;
+        JLabel element = new JLabel();
+        element.setSize(size);
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                if (board[x][y] == this.ISEMPTY) {
+                    element.setBackground(cIsempty);
+                    element.setLocation(point.x * x+1, point.y * y+1);
+                    jpanel.add(element);
+                }
+                if (board[x][y] == this.EMPTY) {
+                    element.setBackground(cEmpty);
+                    element.setLocation(point.x * x+1, point.y * y+1);
+                    jpanel.add(element);
+                }
+                if (board[x][y] == this.FULL) {
+                    element.setBackground(cFull);
+                    element.setLocation(point.x * x+1, point.y * y+1);
+                    jpanel.add(element);
+                }
+            }
+        }
 
-    /**
+    }
+
+    /**      
      *Método que guarda el último movimiento que se ha realizado en un ArrayList.
      */
     protected void saveMove() {
         if (numundo == 0) {
-            moves.add(new Moves(coordinatexin, coordinateyin, coordinatexout, coordinateyout));
+           moves.add(new Move(this.getCoordinatexin(),this.getCoordinateyin(),
+                   this.getCoordinatexout(), this.getCoordinateyout()));
+           
         } else {
             if (numundo == moves.size()) {
                 moves = null;
-                moves.add(new Moves(coordinatexin, coordinateyin, coordinatexout, coordinateyout));
+                moves.add(new Move(this.getCoordinatexin(),this.getCoordinateyin(),
+                   this.getCoordinatexout(), this.getCoordinateyout()));
             } else {
                 while (numundo > 0) {
                     moves.remove(moves.size() - 1);
                     numundo--;
                 }
-                moves.add(new Moves(coordinatexin, coordinateyin, coordinatexout, coordinateyout));
+                moves.add(new Move(this.getCoordinatexin(),this.getCoordinateyin(),
+                   this.getCoordinatexout(), this.getCoordinateyout()));
             }
 
         }
 
+    }
+
+    public int getCoordinatexin() {
+        return coordinatexin;
+    }
+
+    public int getCoordinateyin() {
+        return coordinateyin;
+    }
+
+    public int getCoordinatexout() {
+        return coordinatexout;
+    }
+
+    public int getCoordinateyout() {
+        return coordinateyout;
     }
 
     /**
@@ -355,24 +391,24 @@ public class Solitaire {
      */
     public void undoMove() {
         if (!moves.isEmpty()&& (numundo>=0 && numundo < moves.size())) {
-            int[] tmp;
-            tmp = moves.get(moves.size() - 1 - numundo).getCoord();
-            this.setCellUndo(tmp[0], tmp[1], full);
-            this.setCellUndo(tmp[2], tmp[3], empty);
-            if (tmp[0] == tmp[2]) {
-                if (tmp[1] > tmp[3]) {
-                    this.setCellUndo(tmp[0], tmp[3] + 1, full);
+            int[] tmp2;
+            tmp2 = moves.get(moves.size() - 1 - numundo).getCoord();
+            this.setCellUndo(tmp2[0], tmp2[1], FULL);
+            this.setCellUndo(tmp2[2], tmp2[3], EMPTY);
+            if (tmp2[0] == tmp2[2]) {
+                if (tmp2[1] > tmp2[3]) {
+                    this.setCellUndo(tmp2[0], tmp2[3] + 1, FULL);
                 } else {
-                    this.setCellUndo(tmp[0], tmp[3] - 1, full);
+                    this.setCellUndo(tmp2[0], tmp2[3] - 1, FULL);
                 }
                 numundo++;
                 numall--;
             }
-            if (tmp[1] == tmp[3]) {
-                if (tmp[0] > tmp[2]) {
-                    this.setCellUndo(tmp[2] + 1, tmp[1], full);
+            if (tmp2[1] == tmp2[3]) {
+                if (tmp2[0] > tmp2[2]) {
+                    this.setCellUndo(tmp2[2] + 1, tmp2[1], FULL);
                 } else {
-                    this.setCellUndo(tmp[2] - 1, tmp[1], full);
+                    this.setCellUndo(tmp2[2] - 1, tmp2[1], FULL);
                 }
                 numundo++;
                 numall--;
@@ -389,24 +425,24 @@ public class Solitaire {
      */
     public void reUndoMove() {
         if (moves.size() > numundo && numundo >=0) {
-            int[] tmp;
-            tmp = moves.get(moves.size() - numundo).getCoord();
-            this.setCellUndo(tmp[0], tmp[1], empty);
-            this.setCellUndo(tmp[2], tmp[3], full);
-            if (tmp[0] == tmp[2]) {
-                if (tmp[1] > tmp[3]) {
-                    this.setCellUndo(tmp[0], tmp[3] + 1, empty);
+            int[] tmp1;
+            tmp1 = moves.get(moves.size() - numundo).getCoord();
+            this.setCellUndo(tmp1[0], tmp1[1], EMPTY);
+            this.setCellUndo(tmp1[2], tmp1[3], FULL);
+            if (tmp1[0] == tmp1[2]) {
+                if (tmp1[1] > tmp1[3]) {
+                    this.setCellUndo(tmp1[0], tmp1[3] + 1, EMPTY);
                 } else {
-                    this.setCellUndo(tmp[0], tmp[3] - 1, empty);
+                    this.setCellUndo(tmp1[0], tmp1[3] - 1, EMPTY);
                 }
                 numundo--;
                 numall++;
             }
-            if (tmp[1] == tmp[3]) {
-                if (tmp[0] > tmp[2]) {
-                    this.setCellUndo(tmp[2] + 1, tmp[1], empty);
+            if (tmp1[1] == tmp1[3]) {
+                if (tmp1[0] > tmp1[2]) {
+                    this.setCellUndo(tmp1[2] + 1, tmp1[1], EMPTY);
                 } else {
-                    this.setCellUndo(tmp[2] - 1, tmp[1], empty);
+                    this.setCellUndo(tmp1[2] - 1, tmp1[1], EMPTY);
                 }
                 numundo--;
                 numall++;
@@ -426,7 +462,7 @@ public class Solitaire {
      * @param coordinatey Columnas posición de la matriz.
      * @param o Elemento que sustituye al existente en las posiciones anteriores.
      */
-    protected void setCellUndo(int coordinatex, int coordinatey, Object o) {
+    protected void setCellUndo(int coordinatex, int coordinatey, char o) {
         board[coordinatex][coordinatey] = o;
     }
 
@@ -436,7 +472,7 @@ public class Solitaire {
      * @return Un elemento Source con el archivo XML.
      */
     protected Source generateXml() {
-        int[] tmp;
+        int[] tmp3;
         Source readxml = null;
         try {
             DocumentBuilderFactory makerXML = DocumentBuilderFactory.newInstance();
@@ -445,34 +481,34 @@ public class Solitaire {
             Element itemroot = documentxml.createElement("Movimientos");
             documentxml.appendChild(itemroot);
             for (int i = 0; i < moves.size(); i++) {
-                tmp = moves.get(i).getCoord();
-                Element itemmov = documentxml.createElement("Movimiento " + String.valueOf(i + 1));
+                tmp3 = moves.get(i).getCoord();
+                Element itemmov = documentxml.createElement("Movimiento_" + String.valueOf(i + 1));
                 itemroot.appendChild(itemmov);
 
-                Element coordinatesin = documentxml.createElement("Coordenadas Entrada");
+                Element coordinatesin = documentxml.createElement("Coordenadas_Entrada");
                 itemmov.appendChild(coordinatesin);
 
-                Element positionxin = documentxml.createElement("Coordenada X");
+                Element positionxin = documentxml.createElement("Coordenada_X");
                 coordinatesin.appendChild(positionxin);
-                Text coordxin = documentxml.createTextNode(String.valueOf(tmp[0]));
+                Text coordxin = documentxml.createTextNode(String.valueOf(tmp3[0]));
                 positionxin.appendChild(coordxin);
 
-                Element positionyin = documentxml.createElement("Coordenada Y");
+                Element positionyin = documentxml.createElement("Coordenada_Y");
                 coordinatesin.appendChild(positionyin);
-                Text coordyin = documentxml.createTextNode(String.valueOf(tmp[1]));
+                Text coordyin = documentxml.createTextNode(String.valueOf(tmp3[1]));
                 positionyin.appendChild(coordyin);
 
-                Element coordinatesout = documentxml.createElement("Coordenadas Salida");
-                itemmov.appendChild(coordinatesin);
+                Element coordinatesout = documentxml.createElement("Coordenadas_Salida");
+                itemmov.appendChild(coordinatesout);
 
-                Element positionxout = documentxml.createElement("Coordenada X");
+                Element positionxout = documentxml.createElement("Coordenada_X");
                 coordinatesout.appendChild(positionxout);
-                Text coordxout = documentxml.createTextNode(String.valueOf(tmp[2]));
+                Text coordxout = documentxml.createTextNode(String.valueOf(tmp3[2]));
                 positionxout.appendChild(coordxout);
 
-                Element positionyout = documentxml.createElement("Coordenada Y");
+                Element positionyout = documentxml.createElement("Coordenada_Y");
                 coordinatesout.appendChild(positionyout);
-                Text coordyout = documentxml.createTextNode(String.valueOf(tmp[3]));
+                Text coordyout = documentxml.createTextNode(String.valueOf(tmp3[3]));
                 positionyout.appendChild(coordyout);
             }
             readxml = new DOMSource(documentxml);
@@ -564,71 +600,50 @@ public class Solitaire {
         try {
             BufferedReader bufferread = null;
             bufferread = new BufferedReader(new FileReader(file));
-            String tmp = bufferread.readLine();
-            if (tmp != null) {
-                tmp = bufferread.readLine();
+            String tmp4 = bufferread.readLine();
+            if (tmp4 != null) {
+                tmp4 = bufferread.readLine();
 
-                if (tmp.equalsIgnoreCase("DOCUMENT LEVEL") == false) {
+                if (tmp4.equalsIgnoreCase("DOCUMENT LEVEL") == false) {
 
-                    while (tmp.equalsIgnoreCase("Level" + String.valueOf(level)) == false) {
-                        tmp = bufferread.readLine();
+                    while (tmp4.equalsIgnoreCase("Level" + String.valueOf(level)) == false) {
+                        tmp4 = bufferread.readLine();
                     }
 
-                    while (tmp.equalsIgnoreCase("SIZE") == false) {
-                        tmp = bufferread.readLine();
+                    while (tmp4.equalsIgnoreCase("SIZE") == false) {
+                        tmp4 = bufferread.readLine();
                     }
 
-                    while (tmp.equalsIgnoreCase("X") == false) {
-                        tmp = bufferread.readLine();
+                    while (tmp4.equalsIgnoreCase("X") == false) {
+                        tmp4 = bufferread.readLine();
                     }
-                    tmp = bufferread.readLine();
+                    tmp4 = bufferread.readLine();
 
-                    if (!(tmp == null)) {
-                        DIMENSIONX = Integer.valueOf(tmp);
+                    if (!(tmp4 == null)) {
+                        DIMENSIONX = Integer.valueOf(tmp4);
                     }
 
-                    while (tmp.equalsIgnoreCase("Y") == false) {
-                        tmp = bufferread.readLine();
+                    while (tmp4.equalsIgnoreCase("Y") == false) {
+                        tmp4 = bufferread.readLine();
                     }
-                    tmp = bufferread.readLine();
-                    if (!(tmp == null)) {
-                        DIMENSIONY = Integer.valueOf(tmp);
+                    tmp4 = bufferread.readLine();
+                    if (!(tmp4 == null)) {
+                        DIMENSIONY = Integer.valueOf(tmp4);
                     }
                     board=null;
-                    board = new Object[DIMENSIONX][DIMENSIONY];
-                    while (tmp.equalsIgnoreCase("FULL") == false) {
-                        tmp = bufferread.readLine();
+                    board = new char[DIMENSIONX][DIMENSIONY];
+                    while (tmp4.equalsIgnoreCase("START") == false) {
+                        tmp4 = bufferread.readLine();
                     }
-                    tmp = bufferread.readLine();
-                    if (!(tmp == null)) {
-                        full = tmp;
-                    }
-                    while (tmp.equalsIgnoreCase("EMPTY") == false) {
-                        tmp = bufferread.readLine();
-                    }
-                    tmp = bufferread.readLine();
-                    if (!(tmp == null)) {
-                        empty = tmp;
-                    }
-                    while (tmp.equalsIgnoreCase("ISEMPTY") == false) {
-                        tmp = bufferread.readLine();
-                    }
-                    tmp = bufferread.readLine();
-                    if (!(tmp == null)) {
-                        isnull = tmp;
-                    }
-                    while (tmp.equalsIgnoreCase("START") == false) {
-                        tmp = bufferread.readLine();
-                    }
-                    if (tmp.equalsIgnoreCase("START") == true) {
-                        tmp = bufferread.readLine();
+                    if (tmp4.equalsIgnoreCase("START") == true) {
+                        tmp4 = bufferread.readLine();
                         int x = 0;
-                        while (tmp.equalsIgnoreCase("END") == false) {
-                            for (int y = 0; y < tmp.length(); y++) {
-                                board[x][y] = tmp.charAt(y);
+                        while (tmp4.equalsIgnoreCase("END") == false) {
+                            for (int y = 0; y < tmp4.length(); y++) {
+                                board[x][y] = tmp4.charAt(y);
                             }
                             x++;
-                            tmp = bufferread.readLine();
+                            tmp4 = bufferread.readLine();
                         }
                     }
                 }
@@ -658,13 +673,13 @@ public class Solitaire {
             this.file = new File(namefile);
             BufferedReader bufferread = null;
             bufferread = new BufferedReader(new FileReader(file));
-            String tmp = bufferread.readLine();
-            if (tmp != null) {
-                while (tmp.equalsIgnoreCase("LEVELS") == false) {
-                    tmp = bufferread.readLine();
+            String tmp5 = bufferread.readLine();
+            if (tmp5 != null) {
+                while (tmp5.equalsIgnoreCase("LEVELS") == false) {
+                    tmp5 = bufferread.readLine();
                 }
-                tmp = bufferread.readLine();
-                this.level = Integer.valueOf(tmp);
+                tmp5 = bufferread.readLine();
+                this.level = Integer.valueOf(tmp5);
                 listlevel = new String[this.level];
                 for (int i = 0; i < listlevel.length; i++) {
                     listlevel[i] = "Nivel " + (i + 1);
@@ -687,21 +702,21 @@ public class Solitaire {
             this.file = file;
             BufferedReader bufferread = null;
             bufferread = new BufferedReader(new FileReader(file));
-            String tmp = bufferread.readLine();
-            if (tmp != null) {
-                while (tmp.equalsIgnoreCase("LEVELS") == false) {
-                    tmp = bufferread.readLine();
+            String tmp6 = bufferread.readLine();
+            if (tmp6 != null) {
+                while (tmp6.equalsIgnoreCase("LEVELS") == false) {
+                    tmp6 = bufferread.readLine();
                 }
-                tmp = bufferread.readLine();
-                this.level = Integer.valueOf(tmp);
+                tmp6 = bufferread.readLine();
+                this.level = Integer.valueOf(tmp6);
                 listlevel = new String[this.level];
                 
                 for (int i = 0; i < listlevel.length; i++) {
-                    while(tmp.equalsIgnoreCase("NAME") == false){
-                        tmp = bufferread.readLine();
+                    while(tmp6.equalsIgnoreCase("NAME") == false){
+                        tmp6 = bufferread.readLine();
                     }
-                    tmp = bufferread.readLine();
-                    listlevel[i] = "Nivel " + (i + 1)+": "+tmp;
+                    tmp6 = bufferread.readLine();
+                    listlevel[i] = "Nivel " + (i + 1)+": "+tmp6;
                 }
             }
         } catch (FileNotFoundException ex) {
@@ -725,9 +740,9 @@ public class Solitaire {
      */
     private void setall() {
         if (!(board == null)) {
-            for (Object[] board1 : board) {
-                for (Object board11 : board1) {
-                    if (board11 == full) {
+            for (char[] board1 : board) {
+                for (char board11 : board1) {
+                    if (board11 == FULL) {
                         this.all++;
                     }
                 }
@@ -755,7 +770,7 @@ public class Solitaire {
      */
     private void newBoard(int dimensionX, int dimensionY){
         board= null;
-        board = new Object[dimensionX][dimensionY];
+        board = new char[dimensionX][dimensionY];
         
     }
     
@@ -763,7 +778,7 @@ public class Solitaire {
 //        boolean tmp= true;
 //        for(int i=0; i<board.length;i++){
 //            for(int j=0; j<board[i].length;j++){
-//                if(j==winner[1] && i==winner[0] && board[i][j]==full){
+//                if(j==winner[1] && i==winner[0] && board[i][j]==FULL){
 //                    
 //                }else{
 //                    
@@ -772,34 +787,26 @@ public class Solitaire {
 //        }
 //        return tmp;
 //    }
-    public ArrayList<Moves> gethistory(){
+    public ArrayList<Move> gethistory(){
         return moves;
     }
-   /**
-    * 
-    */
-    public void setMoves(){
-         moves=null;
-    }
     /**
      * 
-     * @param numundo 
      */
-    private void setNumundo() {
-        this.numundo = numundo;
+    public void setDefault(){
+        this.setall();
+        this.numall=0;
+        this.numundo=0;
+        this.moves=null;
     }
-    /**
-     * 
-     * @param numall 
-     */
-    private void setNumall() {
-        this.numall = numall;
+    public boolean isFileNull(){
+        return file!=null;
     }
     
-    public void setDefault(){
-        this.setMoves();
-        this.setall();
-        this.setNumall();
-        this.setNumundo();
+    public void saveStatusBoard(){
+        this.tmp=board;
+    }
+    public void restoreStatusBoard(){
+       board=this.tmp;
     }
 }

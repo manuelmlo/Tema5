@@ -6,30 +6,23 @@
 package solitariochino;
 
 import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
-import java.awt.Component;
 import java.awt.Dialog;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -46,6 +39,14 @@ import javax.xml.transform.stream.StreamResult;
 public class main extends javax.swing.JFrame {
 
     Solitaire solitariochino = new Solitaire(3);
+    Calendar time = Calendar.getInstance();
+    DataCSV savegame = new DataCSV(getClass().getResource("/Data/").getPath(),';');
+    int[] startTime=null;
+    Locale localES= new Locale("ES", "es");
+    ResourceBundle bundle;
+    
+    
+    
 
     /**
      * Creates new form main
@@ -63,8 +64,6 @@ public class main extends javax.swing.JFrame {
         jLayeredPane2.setVisible(true);
         jDesktopPane1.setVisible(false);
         jCheckBoxMenuItemViewModeText.setSelected(true);
-        
-
     }
 
     /**
@@ -90,8 +89,20 @@ public class main extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jLabelpreviewBackground = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabelcountry = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel14 = new javax.swing.JPanel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jLabellanguage = new javax.swing.JLabel();
         jButtonoksetting = new javax.swing.JButton();
         jButtoncancelsetting = new javax.swing.JButton();
         jInternalFramecreategame = new javax.swing.JInternalFrame();
@@ -119,12 +130,14 @@ public class main extends javax.swing.JFrame {
         jMenuItemundomenu = new javax.swing.JMenuItem();
         jMenuItemreundomenu = new javax.swing.JMenuItem();
         buttonGroupView = new javax.swing.ButtonGroup();
+        buttonGrouplanguage = new javax.swing.ButtonGroup();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jButtonundo = new javax.swing.JButton();
         jButtonundo1 = new javax.swing.JButton();
         jButtonmove = new javax.swing.JButton();
+        jButtonrestart = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -144,9 +157,9 @@ public class main extends javax.swing.JFrame {
         jToggleButtonposition = new javax.swing.JToggleButton();
         jButtondown = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
+        jPanelDisplayGraf = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreadisplay = new javax.swing.JTextArea();
-        jPanelDisplayGraf = new javax.swing.JPanel();
         jLabelbackground = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -154,9 +167,10 @@ public class main extends javax.swing.JFrame {
         jMenuItemopen = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemnewgame = new javax.swing.JMenuItem();
+        jMenuItemrestart = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItemsave = new javax.swing.JMenuItem();
+        jMenuItemsaveAs = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemexportxml = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -175,7 +189,7 @@ public class main extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jRadioButtonMenuItemBackground = new javax.swing.JRadioButtonMenuItem();
         jMenusetting = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItemsetting = new javax.swing.JMenuItem();
         jMenuhelp = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -192,16 +206,17 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Nivel:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Res/Bundle"); // NOI18N
+        jLabel6.setText(bundle.getString("main.jLabel6.text")); // NOI18N
 
-        jButtonexamine1.setText("Examinar...");
+        jButtonexamine1.setText(bundle.getString("main.jButtonexamine1.text")); // NOI18N
         jButtonexamine1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonexamine1ActionPerformed(evt);
             }
         });
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Previsualización"));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), bundle.getString("main.jPanel11.border.title"))); // NOI18N
 
         jTextAreaPreview.setEditable(false);
         jTextAreaPreview.setBackground(new java.awt.Color(240, 240, 240));
@@ -225,7 +240,7 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel7.setText("Archivo:");
+        jLabel7.setText(bundle.getString("main.jLabel7.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -248,61 +263,211 @@ public class main extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButtonexamine1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jComboBoxlevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))))
+                        .addGap(0, 12, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
-        jTabbedPanesetting.addTab("Juego", jPanel3);
+        jTabbedPanesetting.addTab(bundle.getString("main.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
+
+        jButton1.setText(bundle.getString("main.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabelpreviewBackground.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 4)));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelpreviewBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 219, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jLabelpreviewBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
-        jTabbedPane3.addTab("tab1", jPanel4);
+        jTabbedPane3.addTab(bundle.getString("main.jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGap(0, 437, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 219, Short.MAX_VALUE)
+            .addGap(0, 167, Short.MAX_VALUE)
         );
 
-        jTabbedPane3.addTab("tab2", jPanel5);
+        jTabbedPane3.addTab(bundle.getString("main.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
 
-        jTabbedPanesetting.addTab("Personalización", jTabbedPane3);
-        jTabbedPanesetting.addTab("Idioma", jTabbedPane4);
+        jTabbedPanesetting.addTab(bundle.getString("main.jTabbedPane3.TabConstraints.tabTitle"), jTabbedPane3); // NOI18N
 
-        jButtonoksetting.setText("Aceptar");
+        jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabelcountry.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabelcountry.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelcountry.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        buttonGrouplanguage.add(jRadioButton1);
+        jRadioButton1.setText(bundle.getString("main.jRadioButton1.text")); // NOI18N
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGrouplanguage.add(jRadioButton2);
+        jRadioButton2.setText(bundle.getString("main.jRadioButton1.text")); // NOI18N
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        buttonGrouplanguage.add(jRadioButton3);
+        jRadioButton3.setText(bundle.getString("main.jRadioButton1.text")); // NOI18N
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        buttonGrouplanguage.add(jRadioButton4);
+        jRadioButton4.setText(bundle.getString("main.jRadioButton1.text")); // NOI18N
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
+
+        buttonGrouplanguage.add(jRadioButton5);
+        jRadioButton5.setText(bundle.getString("main.jRadioButton5.text")); // NOI18N
+        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jRadioButton5))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton5)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        jScrollPane4.setViewportView(jPanel14);
+
+        jLabellanguage.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabellanguage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabellanguage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabellanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(150, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jLabelcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabellanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPanesetting.addTab(bundle.getString("main.jPanel12.TabConstraints.tabTitle"), jPanel12); // NOI18N
+
+        jButtonoksetting.setText(bundle.getString("main.jButtonoksetting.text")); // NOI18N
         jButtonoksetting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonoksettingActionPerformed(evt);
             }
         });
 
-        jButtoncancelsetting.setText("Cancelar");
+        jButtoncancelsetting.setText(bundle.getString("main.jButtoncancelsetting.text")); // NOI18N
+        jButtoncancelsetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtoncancelsettingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -315,7 +480,7 @@ public class main extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonoksetting)
-                        .addGap(21, 21, 21)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtoncancelsetting)))
                 .addContainerGap())
         );
@@ -323,12 +488,12 @@ public class main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPanesetting)
+                .addComponent(jTabbedPanesetting, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonoksetting)
                     .addComponent(jButtoncancelsetting))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialogsettingLayout = new javax.swing.GroupLayout(jDialogsetting.getContentPane());
@@ -340,7 +505,7 @@ public class main extends javax.swing.JFrame {
         jDialogsettingLayout.setVerticalGroup(
             jDialogsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogsettingLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -348,19 +513,19 @@ public class main extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton3.setText("Cortar");
+        jButton3.setText(bundle.getString("main.jButton3.text")); // NOI18N
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
-        jButton4.setText("Copiar");
+        jButton4.setText(bundle.getString("main.jButton4.text")); // NOI18N
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton4);
 
-        jButton5.setText("Pegar");
+        jButton5.setText(bundle.getString("main.jButton5.text")); // NOI18N
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -368,14 +533,14 @@ public class main extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTextPane1);
 
-        jMenu6.setText("Archivo");
+        jMenu6.setText(bundle.getString("main.jMenu6.text")); // NOI18N
         jMenu6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu6ActionPerformed(evt);
             }
         });
 
-        jMenuItem2.setText("Salir");
+        jMenuItem2.setText(bundle.getString("main.jMenuItem2.text")); // NOI18N
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -385,23 +550,23 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu6);
 
-        jMenu7.setText("Editar");
+        jMenu7.setText(bundle.getString("main.jMenu7.text")); // NOI18N
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText(bundle.getString("main.jMenuItem4.text")); // NOI18N
         jMenu7.add(jMenuItem4);
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText(bundle.getString("main.jMenuItem5.text")); // NOI18N
         jMenu7.add(jMenuItem5);
 
         jMenuBar2.add(jMenu7);
 
-        jMenu1.setText("Ver");
+        jMenu1.setText(bundle.getString("main.jMenu1.text")); // NOI18N
 
         jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+        jCheckBoxMenuItem1.setText(bundle.getString("main.jCheckBoxMenuItem1.text")); // NOI18N
         jMenu1.add(jCheckBoxMenuItem1);
 
-        jMenuItem7.setText("jMenuItem7");
+        jMenuItem7.setText(bundle.getString("main.jMenuItem7.text")); // NOI18N
         jMenu1.add(jMenuItem7);
 
         jMenuBar2.add(jMenu1);
@@ -431,7 +596,7 @@ public class main extends javax.swing.JFrame {
 
         jPopupMenu1.setBorder(null);
 
-        jMenusettingmenu.setText("Opciones");
+        jMenusettingmenu.setText(bundle.getString("main.jMenusettingmenu.text")); // NOI18N
         jMenusettingmenu.setMinimumSize(new java.awt.Dimension(100, 100));
         jMenusettingmenu.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -440,7 +605,7 @@ public class main extends javax.swing.JFrame {
         });
 
         jMenuItemnewgame1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemnewgame1.setText("Nuevo");
+        jMenuItemnewgame1.setText(bundle.getString("main.jMenuItemnewgame1.text")); // NOI18N
         jMenuItemnewgame1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemnewgame1ActionPerformed(evt);
@@ -448,7 +613,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenusettingmenu.add(jMenuItemnewgame1);
 
-        jMenuItemrefresh.setText("Actualizar");
+        jMenuItemrefresh.setText(bundle.getString("main.jMenuItemrefresh.text")); // NOI18N
         jMenuItemrefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemrefreshActionPerformed(evt);
@@ -456,13 +621,13 @@ public class main extends javax.swing.JFrame {
         });
         jMenusettingmenu.add(jMenuItemrefresh);
 
-        jMenuItem1.setText("Reiniciar");
+        jMenuItem1.setText(bundle.getString("main.jMenuItem1.text")); // NOI18N
         jMenusettingmenu.add(jMenuItem1);
 
         jPopupMenu1.add(jMenusettingmenu);
         jPopupMenu1.add(jSeparator6);
 
-        jMenuItemundomenu.setText("Deshacer");
+        jMenuItemundomenu.setText(bundle.getString("main.jMenuItemundomenu.text")); // NOI18N
         jMenuItemundomenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemundomenuActionPerformed(evt);
@@ -470,7 +635,7 @@ public class main extends javax.swing.JFrame {
         });
         jPopupMenu1.add(jMenuItemundomenu);
 
-        jMenuItemreundomenu.setText("Rehacer");
+        jMenuItemreundomenu.setText(bundle.getString("main.jMenuItemreundomenu.text")); // NOI18N
         jMenuItemreundomenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemreundomenuActionPerformed(evt);
@@ -488,7 +653,7 @@ public class main extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/undo.png"))); // NOI18N
-        jButtonundo.setToolTipText("Deshacer");
+        jButtonundo.setToolTipText(bundle.getString("main.jButtonundo.toolTipText")); // NOI18N
         jButtonundo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonundoActionPerformed(evt);
@@ -496,25 +661,32 @@ public class main extends javax.swing.JFrame {
         });
 
         jButtonundo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reundo.png"))); // NOI18N
-        jButtonundo1.setToolTipText("Rehacer");
+        jButtonundo1.setToolTipText(bundle.getString("main.jButtonundo1.toolTipText")); // NOI18N
         jButtonundo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonundo1ActionPerformed(evt);
             }
         });
 
-        jButtonmove.setText("Mover");
+        jButtonmove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/move.png"))); // NOI18N
         jButtonmove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonmoveActionPerformed(evt);
             }
         });
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Posición Inicial"));
+        jButtonrestart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reboot.png"))); // NOI18N
+        jButtonrestart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonrestartActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("X in:");
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.jPanel7.border.title"))); // NOI18N
 
-        jLabel3.setText("Y in:");
+        jLabel1.setText(bundle.getString("main.jLabel1.text")); // NOI18N
+
+        jLabel3.setText(bundle.getString("main.jLabel3.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -525,11 +697,11 @@ public class main extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldxin, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jTextFieldyin, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,26 +715,26 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Posición final"));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.jPanel8.border.title"))); // NOI18N
 
-        jLabel4.setText("X out:");
+        jLabel4.setText(bundle.getString("main.jLabel4.text")); // NOI18N
 
-        jLabel5.setText("Y out:");
+        jLabel5.setText(bundle.getString("main.jLabel5.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldxout, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldyout, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,10 +748,10 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Progreso"));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.jPanel10.border.title"))); // NOI18N
 
         jProgressBar1.setForeground(new java.awt.Color(0, 255, 0));
-        jProgressBar1.setToolTipText("Progreso");
+        jProgressBar1.setToolTipText(bundle.getString("main.jProgressBar1.toolTipText")); // NOI18N
         jProgressBar1.setOpaque(true);
         jProgressBar1.setStringPainted(true);
 
@@ -604,24 +776,19 @@ public class main extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButtonmove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonmove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jButtonundo1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonundo)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonundo))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonrestart, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -630,15 +797,17 @@ public class main extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonundo1)
                     .addComponent(jButtonundo))
-                .addGap(91, 91, 91)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonrestart, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonmove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButtonmove)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelgamepad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -683,16 +852,15 @@ public class main extends javax.swing.JFrame {
         jPanelgamepadLayout.setHorizontalGroup(
             jPanelgamepadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelgamepadLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jButtonleft, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelgamepadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButtondown, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonup, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jToggleButtonposition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jToggleButtonposition, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonright, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         jPanelgamepadLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtondown, jButtonleft, jButtonright, jButtonup});
@@ -729,18 +897,17 @@ public class main extends javax.swing.JFrame {
         jTextAreadisplay.setOpaque(false);
         jScrollPane1.setViewportView(jTextAreadisplay);
 
-        jPanel9.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 220, 200);
-
         javax.swing.GroupLayout jPanelDisplayGrafLayout = new javax.swing.GroupLayout(jPanelDisplayGraf);
         jPanelDisplayGraf.setLayout(jPanelDisplayGrafLayout);
         jPanelDisplayGrafLayout.setHorizontalGroup(
             jPanelDisplayGrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
         );
         jPanelDisplayGrafLayout.setVerticalGroup(
             jPanelDisplayGrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDisplayGrafLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel9.add(jPanelDisplayGraf);
@@ -755,23 +922,25 @@ public class main extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelgamepad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelgamepad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelgamepad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelgamepad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -815,10 +984,10 @@ public class main extends javax.swing.JFrame {
         jLayeredPane2.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jDesktopPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jMenuFile.setText("Juego");
+        jMenuFile.setText(bundle.getString("main.jMenuFile.text")); // NOI18N
 
         jMenuItemopen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemopen.setText("Abrir ...");
+        jMenuItemopen.setText(bundle.getString("main.jMenuItemopen.text")); // NOI18N
         jMenuItemopen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemopenActionPerformed(evt);
@@ -828,30 +997,38 @@ public class main extends javax.swing.JFrame {
         jMenuFile.add(jSeparator1);
 
         jMenuItemnewgame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemnewgame.setText("Nuevo");
+        jMenuItemnewgame.setText(bundle.getString("main.jMenuItemnewgame.text")); // NOI18N
         jMenuItemnewgame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemnewgameActionPerformed(evt);
             }
         });
         jMenuFile.add(jMenuItemnewgame);
+
+        jMenuItemrestart.setText(bundle.getString("main.jMenuItemrestart.text")); // NOI18N
+        jMenuFile.add(jMenuItemrestart);
         jMenuFile.add(jSeparator2);
 
-        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem8.setText("Guardar");
-        jMenuFile.add(jMenuItem8);
-
-        jMenuItem9.setText("Guardar como ...");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemsave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemsave.setText(bundle.getString("main.jMenuItemsave.text")); // NOI18N
+        jMenuItemsave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                jMenuItemsaveActionPerformed(evt);
             }
         });
-        jMenuFile.add(jMenuItem9);
+        jMenuFile.add(jMenuItemsave);
+
+        jMenuItemsaveAs.setText(bundle.getString("main.jMenuItemsaveAs.text")); // NOI18N
+        jMenuItemsaveAs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemsaveAsActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemsaveAs);
         jMenuFile.add(jSeparator4);
 
         jMenuItemexportxml.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK));
-        jMenuItemexportxml.setText("Exportar a  XML ...");
+        jMenuItemexportxml.setText(bundle.getString("main.jMenuItemexportxml.text")); // NOI18N
         jMenuItemexportxml.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemexportxmlActionPerformed(evt);
@@ -859,12 +1036,13 @@ public class main extends javax.swing.JFrame {
         });
         jMenuFile.add(jMenuItemexportxml);
 
-        jMenuItem12.setText("Importar de XML...");
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem12.setText(bundle.getString("main.jMenuItem12.text")); // NOI18N
         jMenuFile.add(jMenuItem12);
         jMenuFile.add(jSeparator3);
 
         jMenuItemexit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItemexit.setText("Salir");
+        jMenuItemexit.setText(bundle.getString("main.jMenuItemexit.text")); // NOI18N
         jMenuItemexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemexitActionPerformed(evt);
@@ -874,15 +1052,10 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuFile);
 
-        jMenuedit.setText("Editar");
-        jMenuedit.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jMenueditMouseMoved(evt);
-            }
-        });
+        jMenuedit.setText(bundle.getString("main.jMenuedit.text")); // NOI18N
 
         jMenuItemundo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemundo.setText("Deshacer");
+        jMenuItemundo.setText(bundle.getString("main.jMenuItemundo.text")); // NOI18N
         jMenuItemundo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemundoActionPerformed(evt);
@@ -891,7 +1064,7 @@ public class main extends javax.swing.JFrame {
         jMenuedit.add(jMenuItemundo);
 
         jMenuItemreundo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemreundo.setText("Rehacer");
+        jMenuItemreundo.setText(bundle.getString("main.jMenuItemreundo.text")); // NOI18N
         jMenuItemreundo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemreundoActionPerformed(evt);
@@ -899,14 +1072,25 @@ public class main extends javax.swing.JFrame {
         });
         jMenuedit.add(jMenuItemreundo);
 
-        jMenuHistory.setText("Historial");
+        jMenuHistory.setText(bundle.getString("main.jMenuHistory.text")); // NOI18N
+        jMenuHistory.addMenuDragMouseListener(new javax.swing.event.MenuDragMouseListener() {
+            public void menuDragMouseDragged(javax.swing.event.MenuDragMouseEvent evt) {
+            }
+            public void menuDragMouseEntered(javax.swing.event.MenuDragMouseEvent evt) {
+                jMenuHistoryMenuDragMouseEntered(evt);
+            }
+            public void menuDragMouseExited(javax.swing.event.MenuDragMouseEvent evt) {
+            }
+            public void menuDragMouseReleased(javax.swing.event.MenuDragMouseEvent evt) {
+            }
+        });
         jMenuHistory.add(jMenuItem3);
 
         jMenuedit.add(jMenuHistory);
         jMenuedit.add(jSeparator5);
 
         jMenuItemmakegame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItemmakegame.setText("Crear Juego");
+        jMenuItemmakegame.setText(bundle.getString("main.jMenuItemmakegame.text")); // NOI18N
         jMenuItemmakegame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemmakegameActionPerformed(evt);
@@ -916,16 +1100,11 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuedit);
 
-        jMenuView.setText("Ver");
-        jMenuView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuViewActionPerformed(evt);
-            }
-        });
+        jMenuView.setText(bundle.getString("main.jMenuView.text")); // NOI18N
 
         buttonGroupView.add(jCheckBoxMenuItemViewModeText);
         jCheckBoxMenuItemViewModeText.setSelected(true);
-        jCheckBoxMenuItemViewModeText.setText("Modo Texto");
+        jCheckBoxMenuItemViewModeText.setText(bundle.getString("main.jCheckBoxMenuItemViewModeText.text")); // NOI18N
         jCheckBoxMenuItemViewModeText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxMenuItemViewModeTextActionPerformed(evt);
@@ -934,7 +1113,7 @@ public class main extends javax.swing.JFrame {
         jMenuView.add(jCheckBoxMenuItemViewModeText);
 
         buttonGroupView.add(jCheckBoxMenuItemViewModeGraf);
-        jCheckBoxMenuItemViewModeGraf.setText("Modo Gráfico");
+        jCheckBoxMenuItemViewModeGraf.setText(bundle.getString("main.jCheckBoxMenuItemViewModeGraf.text")); // NOI18N
         jCheckBoxMenuItemViewModeGraf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxMenuItemViewModeGrafActionPerformed(evt);
@@ -944,7 +1123,7 @@ public class main extends javax.swing.JFrame {
         jMenuView.add(jSeparator7);
 
         jRadioButtonMenuItemBackground.setSelected(true);
-        jRadioButtonMenuItemBackground.setText("Tema");
+        jRadioButtonMenuItemBackground.setText(bundle.getString("main.jRadioButtonMenuItemBackground.text")); // NOI18N
         jRadioButtonMenuItemBackground.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonMenuItemBackgroundActionPerformed(evt);
@@ -954,37 +1133,32 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuView);
 
-        jMenusetting.setText("Opciones");
-        jMenusetting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenusettingActionPerformed(evt);
-            }
-        });
+        jMenusetting.setText(bundle.getString("main.jMenusetting.text")); // NOI18N
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setText("Preferencias");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemsetting.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemsetting.setText(bundle.getString("main.jMenuItemsetting.text")); // NOI18N
+        jMenuItemsetting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItemsettingActionPerformed(evt);
             }
         });
-        jMenusetting.add(jMenuItem6);
+        jMenusetting.add(jMenuItemsetting);
 
         jMenuBar1.add(jMenusetting);
 
-        jMenuhelp.setText("Ayuda");
+        jMenuhelp.setText(bundle.getString("main.jMenuhelp.text")); // NOI18N
 
-        jMenu2.setText("Ayuda");
+        jMenu2.setText(bundle.getString("main.jMenu2.text")); // NOI18N
 
-        jMenuItem10.setText("jMenuItem10");
+        jMenuItem10.setText(bundle.getString("main.jMenuItem10.text")); // NOI18N
         jMenu2.add(jMenuItem10);
 
-        jMenuItem11.setText("jMenuItem11");
+        jMenuItem11.setText(bundle.getString("main.jMenuItem11.text")); // NOI18N
         jMenu2.add(jMenuItem11);
 
         jMenuhelp.add(jMenu2);
 
-        jMenu4.setText("Acerca de");
+        jMenu4.setText(bundle.getString("main.jMenu4.text")); // NOI18N
         jMenuhelp.add(jMenu4);
 
         jMenuBar1.add(jMenuhelp);
@@ -995,12 +1169,12 @@ public class main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1013,16 +1187,12 @@ public class main extends javax.swing.JFrame {
         solitariochino.setcoordinateout(Integer.valueOf(jTextFieldxout.getText()) - 1,
                 Integer.valueOf(jTextFieldyout.getText()) - 1);
         solitariochino.setMove();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
-        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
+        this.refreshDisplay();
     }//GEN-LAST:event_jButtonmoveActionPerformed
 
     private void jButtonundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonundoActionPerformed
         solitariochino.undoMove();
-        jTextAreadisplay.setText("");
-        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
-        jTextAreadisplay.setText(solitariochino.toString());
+        this.refreshDisplay();
     }//GEN-LAST:event_jButtonundoActionPerformed
 
     private void jMenuItemexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemexitActionPerformed
@@ -1037,14 +1207,17 @@ public class main extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void closewindows() {
         if (JOptionPane.showConfirmDialog(this, "¿Desea salir del juego?",
                 "Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
             if (JOptionPane.showConfirmDialog(this, "¿Desea guardar los datos?", "Aviso",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
+                    savegame.setData(this.startTime,
+                            solitariochino.getAll()-solitariochino.getNumall(),
+                            String.valueOf(jComboBoxlevel.getSelectedItem()),
+                            this.getTimeStart());
                 JOptionPane.showMessageDialog(this, "Se han guardado los datos.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
             } else {
@@ -1054,12 +1227,6 @@ public class main extends javax.swing.JFrame {
         }
 
     }
-    private void jMenusettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenusettingActionPerformed
-
-        jDialogsetting.setVisible(true);
-
-    }//GEN-LAST:event_jMenusettingActionPerformed
-
     private void jMenuItemmakegameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemmakegameActionPerformed
         if (jPanel1.isVisible()) {
             jPanel1.setVisible(false);
@@ -1109,10 +1276,33 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemopenActionPerformed
 
     private void jMenuItemnewgameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemnewgameActionPerformed
-        solitariochino.generategame();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
+        if (!solitariochino.isFileNull()) {
+            solitariochino.generategame();
+            jComboBoxlevel.setModel(new DefaultComboBoxModel(new String[]{"Default"}));
+            jComboBoxlevel.setSelectedIndex(0);
+            jTextAreaPreview.setText(solitariochino.toString());
+        } else {
+            solitariochino.setLevel(jComboBoxlevel.getSelectedIndex() + 1);
+        }
+        solitariochino.setDefault();
+        this.refreshDisplay();
+        this.startTime = this.getTimeStart();
     }//GEN-LAST:event_jMenuItemnewgameActionPerformed
+    /**
+     * 
+     * @return 
+     */
+    private int[] getTimeStart(){
+        int [] tmp={time.get(Calendar.YEAR),time.get(Calendar.MONTH),
+        time.get(Calendar.DAY_OF_MONTH),time.get(Calendar.HOUR),time.get(Calendar.MINUTE)
+                ,time.get(Calendar.SECOND)};
+        return tmp;
+    }
+    private String getTimeStartString(){
+        
+        return String.valueOf(this.getTimeStart()[0]+'-'+this.getTimeStart()[1]+
+                '-'+this.getTimeStart()[2]);
+    }
 
     private void jButtonexamine1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexamine1ActionPerformed
         JFileChooser selectorfile = new JFileChooser();
@@ -1120,8 +1310,7 @@ public class main extends javax.swing.JFrame {
         selectorfile.setCurrentDirectory(new File(".", "Level"));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos LEVEL (*.level)", "level");
         selectorfile.setFileFilter(filter);
-        int selector = selectorfile.showOpenDialog(this);
-        if (selector == JFileChooser.APPROVE_OPTION) {
+        if (selectorfile.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = selectorfile.getSelectedFile();
             solitariochino.setFile(file);
             JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.",
@@ -1135,10 +1324,11 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonexamine1ActionPerformed
 
     private void jComboBoxlevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxlevelActionPerformed
-       solitariochino.setLevel(jComboBoxlevel.getSelectedIndex()+1);
-       jTextAreaPreview.setText("");
-       jTextAreaPreview.setText(solitariochino.toString());
-       
+       if(solitariochino.isFileNull()){
+            solitariochino.setLevel(jComboBoxlevel.getSelectedIndex()+1);  
+            jTextAreaPreview.setText(solitariochino.toString());
+       }
+        
     }//GEN-LAST:event_jComboBoxlevelActionPerformed
 
     private void jMenuItemexportxmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemexportxmlActionPerformed
@@ -1183,63 +1373,47 @@ public class main extends javax.swing.JFrame {
 
     private void jButtonrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonrightActionPerformed
         solitariochino.setMoveRight(jToggleButtonposition.isSelected());
-        jTextFieldyin.setText(String.valueOf(1 + solitariochino.coordinateyin));
-        jTextFieldyout.setText(String.valueOf(1 + solitariochino.coordinateyout));
+        jTextFieldyin.setText(String.valueOf(1 + solitariochino.getCoordinatexin()));
+        jTextFieldyout.setText(String.valueOf(1 + solitariochino.getCoordinateyout()));
 
     }//GEN-LAST:event_jButtonrightActionPerformed
 
     private void jButtonundo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonundo1ActionPerformed
-        solitariochino.reUndoMove();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
-        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
-        
+        this.jMenuItemundoActionPerformed(evt);    
     }//GEN-LAST:event_jButtonundo1ActionPerformed
 
     private void jMenuItemundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemundoActionPerformed
-        solitariochino.undoMove();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
-        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
+        this.jMenuItemreundoActionPerformed(evt);
     }//GEN-LAST:event_jMenuItemundoActionPerformed
 
     private void jButtonleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonleftActionPerformed
 
         solitariochino.setMoveleft(jToggleButtonposition.isSelected());
-        jTextFieldyin.setText(String.valueOf(1 + solitariochino.coordinateyin));
-        jTextFieldyout.setText(String.valueOf(1 + solitariochino.coordinateyout));
+        jTextFieldyin.setText(String.valueOf(1 + solitariochino.getCoordinateyin()));
+        jTextFieldyout.setText(String.valueOf(1 + solitariochino.getCoordinateyout()));
     }//GEN-LAST:event_jButtonleftActionPerformed
 
     private void jMenuItemreundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemreundoActionPerformed
         solitariochino.reUndoMove();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
+        this.refreshDisplay();
         jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
     }//GEN-LAST:event_jMenuItemreundoActionPerformed
 
     private void jMenuItemreundomenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemreundomenuActionPerformed
         jPopupMenu1.setVisible(false);
-        solitariochino.reUndoMove();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
-        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
+        this.jMenuItemreundoActionPerformed(evt); 
     }//GEN-LAST:event_jMenuItemreundomenuActionPerformed
 
     private void jMenuItemrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemrefreshActionPerformed
-//        jPopupMenu1.setVisible(false);
-//        jTextAreadisplay.setText("");
-//        jTextAreadisplay.setText(solitariochino.toString());
+
           jPopupMenu1.setVisible(false);
-          solitariochino.toString(jTextAreadisplay);
+          this.refreshDisplay();
     }//GEN-LAST:event_jMenuItemrefreshActionPerformed
 
     private void jMenuItemundomenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemundomenuActionPerformed
 
         jPopupMenu1.setVisible(false);
-        solitariochino.undoMove();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
-        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
+        this.jMenuItemundoActionPerformed(evt); 
 
     }//GEN-LAST:event_jMenuItemundomenuActionPerformed
 
@@ -1267,22 +1441,22 @@ public class main extends javax.swing.JFrame {
 
     private void jButtonupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonupActionPerformed
         solitariochino.setMoveUp(jToggleButtonposition.isSelected());
-        jTextFieldxin.setText(String.valueOf(1 + solitariochino.coordinatexin));
-        jTextFieldxout.setText(String.valueOf(1 + solitariochino.coordinatexout));
+        jTextFieldxin.setText(String.valueOf(1 + solitariochino.getCoordinatexin()));
+        jTextFieldxout.setText(String.valueOf(1 + solitariochino.getCoordinatexout()));
     }//GEN-LAST:event_jButtonupActionPerformed
 
     private void jButtondownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtondownActionPerformed
         solitariochino.setMoveDown(jToggleButtonposition.isSelected());
-        jTextFieldxin.setText(String.valueOf(1 + solitariochino.coordinatexin));
-        jTextFieldxout.setText(String.valueOf(1 + solitariochino.coordinatexout));
+        jTextFieldxin.setText(String.valueOf(1 + solitariochino.getCoordinatexin()));
+        jTextFieldxout.setText(String.valueOf(1 + solitariochino.getCoordinatexout()));
         
     }//GEN-LAST:event_jButtondownActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-
+    private void jMenuItemsettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemsettingActionPerformed
+        solitariochino.saveStatusBoard();
         jDialogsetting.setVisible(true);
-        jDialogsetting.setLocationRelativeTo(this);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItemsettingActionPerformed
 
     private void jMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ActionPerformed
         // TODO add your handling code here:
@@ -1293,53 +1467,45 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItemnewgame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemnewgame1ActionPerformed
-        solitariochino.generategame();
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
+        this.jMenuItemnewgameActionPerformed(evt);
     }//GEN-LAST:event_jMenuItemnewgame1ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenueditMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenueditMouseMoved
-
-       if(solitariochino.gethistory().size()> 0){
-          jMenuHistory.setEnabled(true);
-          
-         
-              jMenuHistory.add(new JMenuItem(solitariochino.gethistory().get(0).toString()));
-          
-      }else{
-          jMenuHistory.setEnabled(false);
-      }
-        
-    }//GEN-LAST:event_jMenueditMouseMoved
+    private void jMenuItemsaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemsaveAsActionPerformed
+        JFileChooser selectorfile = new JFileChooser();
+        selectorfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv");
+        selectorfile.setFileFilter(filter);
+        if (selectorfile.showOpenDialog(this)== JFileChooser.APPROVE_OPTION) {
+            File file = selectorfile.getSelectedFile();
+            if(file.isDirectory()){
+                file=new File(file, this.getTimeStartString()+".csv");
+            }
+            this.savegame.setname(file.getName());
+            
+            JOptionPane.showMessageDialog(this, "Archivo guardado correctamente.",
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha guardado.",
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItemsaveAsActionPerformed
 
     private void jCheckBoxMenuItemViewModeGrafActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemViewModeGrafActionPerformed
-        if(jCheckBoxMenuItemViewModeGraf.isSelected()){
-               jCheckBoxMenuItemViewModeText.setSelected(true);   
-           }else{
-               jCheckBoxMenuItemViewModeGraf.setSelected(true);
-           }
-        jTextAreadisplay.setVisible(jCheckBoxMenuItemViewModeText.isSelected());
-        jPanelDisplayGraf.setVisible(jCheckBoxMenuItemViewModeGraf.isSelected());
+        this.setMode();
     }//GEN-LAST:event_jCheckBoxMenuItemViewModeGrafActionPerformed
 
     private void jCheckBoxMenuItemViewModeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemViewModeTextActionPerformed
-           if(jCheckBoxMenuItemViewModeText.isSelected()){
-               jCheckBoxMenuItemViewModeGraf.setSelected(true);
-           }else{
-               jCheckBoxMenuItemViewModeText.setSelected(true);
-           }
+         this.setMode();
+    }//GEN-LAST:event_jCheckBoxMenuItemViewModeTextActionPerformed
+    /**
+     * Procedimiento para alternar los modos de visualización.
+     * Texto o gráfico, menu item check box en un grupo de botones.
+     */
+    private void setMode(){
            jTextAreadisplay.setVisible(jCheckBoxMenuItemViewModeText.isSelected());
            jPanelDisplayGraf.setVisible(jCheckBoxMenuItemViewModeGraf.isSelected());
-    }//GEN-LAST:event_jCheckBoxMenuItemViewModeTextActionPerformed
-
-    private void jMenuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuViewActionPerformed
-        
-    }//GEN-LAST:event_jMenuViewActionPerformed
-
+    }
+    
     private void jRadioButtonMenuItemBackgroundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemBackgroundActionPerformed
         if(jRadioButtonMenuItemBackground.isSelected()){
             jLabelbackground.setIcon(new ImageIcon(getClass().getResource("")));
@@ -1349,11 +1515,111 @@ public class main extends javax.swing.JFrame {
     private void jButtonoksettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonoksettingActionPerformed
         solitariochino.setDefault();
         jDialogsetting.setVisible(false);
-        jTextAreadisplay.setText("");
-        jTextAreadisplay.setText(solitariochino.toString());
-        
+        this.refreshDisplay();   
     }//GEN-LAST:event_jButtonoksettingActionPerformed
 
+    private void jButtonrestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonrestartActionPerformed
+        solitariochino.setLevel(jComboBoxlevel.getSelectedIndex());
+        this.refreshDisplay(); 
+        this.startTime=this.getTimeStart();
+        savegame.setData(this.startTime,
+                            solitariochino.getAll()-solitariochino.getNumall(),
+                            solitariochino.getListlevel()[jComboBoxlevel.getSelectedIndex()],
+                            this.getTimeStart());
+        solitariochino.setDefault();
+        solitariochino.setLevel(jComboBoxlevel.getSelectedIndex()+1);   
+    }//GEN-LAST:event_jButtonrestartActionPerformed
+
+    private void jMenuItemsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemsaveActionPerformed
+
+        try {
+            FileWriter fileWriter = new FileWriter(new File( savegame.setData(this.startTime,
+                    solitariochino.getAll()-solitariochino.getNumall(),
+                    String.valueOf(jComboBoxlevel.getSelectedItem()),
+                    this.getTimeStart()).getName()));
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemsaveActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser selectfile = new JFileChooser();
+        selectfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        selectfile.setCurrentDirectory(new File(".", "Level"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos LEVEL (*.png,*.jpg)", "png","jpg");
+        selectfile.setFileFilter(filter);
+        selectfile.setSize(400, 400);
+        if (selectfile.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file=selectfile.getSelectedFile();
+            jLabelpreviewBackground.setIcon(new ImageIcon(file.getAbsolutePath()));
+            System.out.println(file.getAbsolutePath());
+            JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.",
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha cargado archivo niveles.",
+                    "Información.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuHistoryMenuDragMouseEntered(javax.swing.event.MenuDragMouseEvent evt) {//GEN-FIRST:event_jMenuHistoryMenuDragMouseEntered
+        if (solitariochino.gethistory().size() > 0) {
+            jMenuHistory.removeAll();
+            jMenuHistory.setEnabled(true);
+            jMenuHistory.add(new JMenuItem(solitariochino.gethistory().get(0).toString()));
+        } else {
+            jMenuHistory.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_jMenuHistoryMenuDragMouseEntered
+
+    private void jButtoncancelsettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncancelsettingActionPerformed
+        solitariochino.restoreStatusBoard();
+        jDialogsetting.setVisible(false);
+        this.refreshDisplay();
+    }//GEN-LAST:event_jButtoncancelsettingActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        this.setlanguaje(localES);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        this.setlanguaje(Locale.ENGLISH);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        this.setlanguaje(Locale.FRENCH);
+        
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        this.setlanguaje(Locale.GERMAN);
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
+        this.setlanguaje(Locale.ITALIAN);
+    }//GEN-LAST:event_jRadioButton5ActionPerformed
+
+    /**
+     * Método para actualizar el elemento que muestra.
+     */
+    private void refreshDisplay(){
+        jProgressBar1.setValue((solitariochino.getNumall() * 100) / solitariochino.getAll());
+        jTextAreadisplay.setText("");
+        jTextAreadisplay.setText(solitariochino.toString());
+//        jPanelDisplayGraf.removeAll();
+//        solitariochino.toGraphics(jPanelDisplayGraf);
+        
+    }
+    
+    private void setlanguaje(Locale local){
+        this.setLocale(local);
+        bundle=ResourceBundle.getBundle(getClass().getResource("/Res/Bundle").getFile(), local);
+        this.initComponents();
+        this.jLabelcountry.setText(this.getLocale().getDisplayCountry());
+        this.jLabellanguage.setText(this.getLocale().getDisplayCountry());
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1391,6 +1657,8 @@ public class main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupView;
+    private javax.swing.ButtonGroup buttonGrouplanguage;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1400,6 +1668,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton jButtonleft;
     private javax.swing.JButton jButtonmove;
     private javax.swing.JButton jButtonoksetting;
+    private javax.swing.JButton jButtonrestart;
     private javax.swing.JButton jButtonright;
     private javax.swing.JButton jButtonundo;
     private javax.swing.JButton jButtonundo1;
@@ -1418,6 +1687,9 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelbackground;
+    private javax.swing.JLabel jLabelcountry;
+    private javax.swing.JLabel jLabellanguage;
+    private javax.swing.JLabel jLabelpreviewBackground;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1436,10 +1708,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemexit;
     private javax.swing.JMenuItem jMenuItemexportxml;
     private javax.swing.JMenuItem jMenuItemmakegame;
@@ -1447,8 +1716,12 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemnewgame1;
     private javax.swing.JMenuItem jMenuItemopen;
     private javax.swing.JMenuItem jMenuItemrefresh;
+    private javax.swing.JMenuItem jMenuItemrestart;
     private javax.swing.JMenuItem jMenuItemreundo;
     private javax.swing.JMenuItem jMenuItemreundomenu;
+    private javax.swing.JMenuItem jMenuItemsave;
+    private javax.swing.JMenuItem jMenuItemsaveAs;
+    private javax.swing.JMenuItem jMenuItemsetting;
     private javax.swing.JMenuItem jMenuItemundo;
     private javax.swing.JMenuItem jMenuItemundomenu;
     private javax.swing.JMenu jMenuView;
@@ -1459,6 +1732,9 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1471,10 +1747,16 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelgamepad;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemBackground;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -1483,7 +1765,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPanesetting;
     private javax.swing.JTextArea jTextAreaPreview;
     private javax.swing.JTextArea jTextAreadisplay;

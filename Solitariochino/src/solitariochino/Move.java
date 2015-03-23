@@ -9,14 +9,14 @@ package solitariochino;
  *
  * @author Manuel Manzano López.
  */
-public class Moves {
+public class Move {
 
     private int coordX = 0;
     private int coordY = 0;
     private int coord1X = 0;
     private int coord1Y = 0;
 
-    public Moves(int itemX, int itemY, int item1X, int item1Y) {
+    public Move(int itemX, int itemY, int item1X, int item1Y) {
         this.coordX = itemX;
         this.coordY = itemY;
         this.coord1X = item1X;
